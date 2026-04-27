@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -8,771 +9,1270 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/panzoom@9.4.0/dist/panzoom.min.js"></script>
     <style>
-        body, html { 
-            font-family: 'Outfit', sans-serif; 
-            background: #060913; color: #f8fafc;
-            margin: 0; padding: 0; width: 100vw; height: 100vh; overflow: hidden;
+        body,
+        html {
+            font-family: 'Outfit', sans-serif;
+            background: #060913;
+            color: #f8fafc;
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
             background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1.5px, transparent 1.5px);
             background-size: 30px 30px;
             background-position: center center;
         }
-        
+
         .glass-panel {
-            background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; text-align: center;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
         }
+
         .glass-panel::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
         }
+
         .glass-panel:hover {
-            box-shadow: 0 10px 30px rgba(56, 189, 248, 0.15); border-color: rgba(56, 189, 248, 0.4); z-index: 20;
+            box-shadow: 0 10px 30px rgba(56, 189, 248, 0.15);
+            border-color: rgba(56, 189, 248, 0.4);
+            z-index: 20;
         }
 
         .shape-oval {
-            border-radius: 40px; padding: 10px 28px; font-weight: 800; font-size: 14px;
-            text-transform: uppercase; letter-spacing: 1.5px; background: linear-gradient(135deg, #0284c7, #2563eb);
-            color: white; box-shadow: 0 0 20px rgba(37, 99, 235, 0.3); border: 2px solid rgba(255,255,255,0.15);
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3); z-index: 10; display: inline-block;
+            border-radius: 40px;
+            padding: 10px 28px;
+            font-weight: 800;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            background: linear-gradient(135deg, #0284c7, #2563eb);
+            color: white;
+            box-shadow: 0 0 20px rgba(37, 99, 235, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            z-index: 10;
+            display: inline-block;
         }
+
         .shape-process {
-            border-radius: 12px; padding: 12px 18px; font-size: 14px; text-align: center; z-index: 10;
+            border-radius: 12px;
+            padding: 12px 18px;
+            font-size: 14px;
+            text-align: center;
+            z-index: 10;
         }
 
         .shape-decision {
-            width: 120px; height: 120px; position: relative; display: flex; align-items: center; justify-content: center; margin: 6px auto; z-index: 10;
-        }
-        .shape-decision::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; transform: rotate(45deg);
-            background: rgba(245, 158, 11, 0.15); border: 2px solid #f59e0b; border-radius: 12px;
-            z-index: -1; box-shadow: 0 0 15px rgba(245, 158, 11, 0.2); transition: all 0.3s ease; backdrop-filter: blur(6px);
-        }
-        .decision-text {
-            font-weight: 700; color: #fde68a; text-align: center; font-size: 11px; padding: 10px; line-height: 1.2; text-shadow: 0 2px 3px rgba(0,0,0,0.5); z-index: 10;
+            width: 140px;
+            height: 140px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 6px auto;
+            z-index: 10;
         }
 
-        .v-line { width: 2px; height: 25px; background: linear-gradient(to bottom, #3b82f6, #6366f1); margin: 0 auto; position: relative; z-index: 1; }
-        .arrow-down { width: 0; height: 0; border-left: 8px solid transparent; border-right: 8px solid transparent; border-top: 10px solid #6366f1; margin: 0 auto; position: relative; z-index: 2; }
+        .shape-decision::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 80%;
+            height: 80%;
+            transform: translate(-50%, -50%) rotate(45deg);
+            background: rgba(245, 158, 11, 0.15);
+            border: 2px solid #f59e0b;
+            border-radius: 6px;
+            z-index: -1;
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.2);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(6px);
+        }
+
+        .decision-text {
+            font-weight: 700;
+            color: #fde68a;
+            text-align: center;
+            font-size: 11px;
+            padding: 10px;
+            line-height: 1.2;
+            text-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
+            z-index: 10;
+        }
+
+        .v-line {
+            width: 2px;
+            height: 25px;
+            background: linear-gradient(to bottom, #3b82f6, #6366f1);
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .arrow-down {
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 10px solid #6366f1;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
 
         .dashboard-container {
-            border: 2px dashed rgba(16, 185, 129, 0.5); background: rgba(16, 185, 129, 0.05); border-radius: 18px; padding: 24px; position: relative; z-index: 10;
-        }
-        
-        .badge {
-            background: rgba(255, 255, 255, 0.1); padding: 2px 8px; border-radius: 8px; font-size: 10px; font-weight: 700; margin-bottom: 6px; display: inline-block; border: 1px solid rgba(255,255,255,0.05);
+            border: 2px dashed rgba(16, 185, 129, 0.5);
+            background: rgba(16, 185, 129, 0.05);
+            border-radius: 18px;
+            padding: 24px;
+            position: relative;
+            z-index: 10;
         }
 
-        #canvas-wrapper { cursor: grab; width: 100vw; height: 100vh; position: relative; outline: none; }
-        #canvas-wrapper:active { cursor: grabbing; }
-        
-        .floating-header {
-            position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 100; pointer-events: none; text-align: center; display: flex; flex-direction: column; align-items: center;
+        .badge {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2px 8px;
+            border-radius: 8px;
+            font-size: 10px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            display: inline-block;
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
-        .controls-panel { position: fixed; bottom: 24px; right: 24px; z-index: 100; display: flex; gap: 8px; align-items: center; }
-        .hidden-flow { display: none !important; }
+
+        #canvas-wrapper {
+            cursor: grab;
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            outline: none;
+        }
+
+        #canvas-wrapper:active {
+            cursor: grabbing;
+        }
+
+        .floating-header {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            pointer-events: none;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .controls-panel {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 100;
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .hidden-flow {
+            display: none !important;
+        }
     </style>
 </head>
+
 <body>
 
-<!-- Fixed Background Effects -->
-<div class="fixed top-0 left-0 w-full h-full pointer-events-none z-[-1] overflow-hidden">
-    <div class="absolute top-[10%] left-[20%] w-[350px] h-[350px] bg-blue-500/10 filter blur-[100px] rounded-full"></div>
-    <div class="absolute bottom-[10%] right-[10%] w-[400px] h-[400px] bg-emerald-500/10 filter blur-[120px] rounded-full"></div>
-</div>
-
-<!-- Floating Top Header -->
-<div class="floating-header">
-    <div class="flex items-center bg-[#0f172a] rounded-full p-1 border border-slate-700/80 shadow-2xl backdrop-blur-xl pointer-events-auto mb-4">
-        <button id="btn-student" onclick="setView('student')" class="px-5 py-2 rounded-full text-[13px] font-bold text-slate-400 hover:text-white transition">Student Flow</button>
-        <button id="btn-admin" onclick="setView('admin')" class="px-5 py-2 rounded-full text-[13px] font-bold bg-purple-600 text-white shadow-lg transition">Admin & Cell Flow</button>
+    <!-- Fixed Background Effects -->
+    <div class="fixed top-0 left-0 w-full h-full pointer-events-none z-[-1] overflow-hidden">
+        <div class="absolute top-[10%] left-[20%] w-[350px] h-[350px] bg-blue-500/10 filter blur-[100px] rounded-full">
+        </div>
+        <div
+            class="absolute bottom-[10%] right-[10%] w-[400px] h-[400px] bg-emerald-500/10 filter blur-[120px] rounded-full">
+        </div>
     </div>
-    
-    <h1 class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-white via-slate-200 to-slate-400 drop-shadow-xl tracking-tight leading-tight mt-2">Placement Flow</h1>
-</div>
 
-<div class="controls-panel">
-    <div class="bg-[#0f172a]/80 backdrop-blur border border-slate-700/50 rounded-lg px-4 py-2 text-[11px] font-semibold text-slate-300 shadow-xl flex items-center gap-2"><span class="text-lg">🖱️</span> Drag to Pan</div>
-    <div class="bg-[#0f172a]/80 backdrop-blur border border-slate-700/50 rounded-lg px-4 py-2 text-[11px] font-semibold text-slate-300 shadow-xl flex items-center gap-2"><span class="text-lg">↕️</span> Scroll to Zoom</div>
-    <button onclick="resetZoom()" class="bg-indigo-600/90 hover:bg-indigo-500 border border-indigo-400 rounded-lg px-4 py-2 text-[11px] font-bold text-white shadow-xl transition pointer-events-auto cursor-pointer">Recenter Map</button>
-</div>
+    <!-- Floating Top Header -->
+    <div class="floating-header">
+        <div
+            class="flex items-center bg-[#0f172a] rounded-full p-1 border border-slate-700/80 shadow-2xl backdrop-blur-xl pointer-events-auto mb-4">
+            <button id="btn-student" onclick="setView('student')"
+                class="px-5 py-2 rounded-full text-[13px] font-bold text-slate-400 hover:text-white transition">Student
+                Flow</button>
+            <button id="btn-admin" onclick="setView('admin')"
+                class="px-5 py-2 rounded-full text-[13px] font-bold bg-purple-600 text-white shadow-lg transition">Admin
+                & Cell Flow</button>
+        </div>
 
-<div id="canvas-wrapper">
-    <div id="diagram-content" class="w-full h-full absolute">
+        <h1
+            class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-white via-slate-200 to-slate-400 drop-shadow-xl tracking-tight leading-tight mt-2">
+            Placement Flow</h1>
+    </div>
 
-        <!-- ============================================== -->
-        <!--        STUDENT DIAGRAM                         -->
-        <!-- ============================================== -->
-        <div id="student-diagram" class="hidden-flow flex flex-col items-center w-[1050px] absolute z-10 transition-opacity pb-32">
-            <div class="shape-oval border-blue-400 shadow-[0_0_20px_rgba(56,189,248,0.3)] !px-12 !py-3 !mt-8">Start</div>
-            <div class="v-line !h-[30px] !bg-blue-500"></div><div class="arrow-down block !border-t-blue-500"></div>
+    <div class="controls-panel">
+        <div
+            class="bg-[#0f172a]/80 backdrop-blur border border-slate-700/50 rounded-lg px-4 py-2 text-[11px] font-semibold text-slate-300 shadow-xl flex items-center gap-2">
+            <span class="text-lg">🖱️</span> Drag to Pan
+        </div>
+        <div
+            class="bg-[#0f172a]/80 backdrop-blur border border-slate-700/50 rounded-lg px-4 py-2 text-[11px] font-semibold text-slate-300 shadow-xl flex items-center gap-2">
+            <span class="text-lg">↕️</span> Scroll to Zoom
+        </div>
+        <button onclick="resetZoom()"
+            class="bg-indigo-600/90 hover:bg-indigo-500 border border-indigo-400 rounded-lg px-4 py-2 text-[11px] font-bold text-white shadow-xl transition pointer-events-auto cursor-pointer">Recenter
+            Map</button>
+    </div>
 
-            <div class="glass-panel shape-process border-blue-500/50 hover:bg-blue-900/20 !p-3 !w-[280px]">
-                <div class="text-[13px] font-bold text-white">1. Admin Provides Login Credentials</div>
-            </div>
-            <div class="v-line !h-[25px] !bg-blue-500"></div><div class="arrow-down block !border-t-blue-500"></div>
+    <div id="canvas-wrapper">
+        <div id="diagram-content" class="w-full h-full absolute">
 
-            <div class="glass-panel shape-process border-blue-500/50 hover:bg-blue-900/20 !p-3 !w-[280px]">
-                <div class="text-[13px] font-bold text-white">2. Student Login</div>
-            </div>
-            <div class="v-line !h-[25px] !bg-blue-500"></div><div class="arrow-down block !border-t-blue-500"></div>
+            <!-- ============================================== -->
+            <!--        STUDENT DIAGRAM                         -->
+            <!-- ============================================== -->
+            <div id="student-diagram"
+                class="hidden-flow flex flex-col items-center w-[1050px] absolute z-10 transition-opacity pb-32">
+                <div class="shape-oval border-blue-400 shadow-[0_0_20px_rgba(56,189,248,0.3)] !px-12 !py-3 !mt-8">Start
+                </div>
+                <div class="v-line !h-[30px] !bg-blue-500"></div>
+                <div class="arrow-down block !border-t-blue-500"></div>
 
-            <div class="glass-panel shape-process border-blue-400 !w-[280px]">
-                <div class="font-bold text-sm text-white">3. Career Path Selection</div>
-                <div class="text-[10px] text-slate-300 uppercase mt-1 tracking-wider">Placement • Higher Studies • Business</div>
-            </div>
-            <div class="v-line !h-[25px] !bg-blue-500"></div><div class="arrow-down block !border-t-blue-500"></div>
+                <div class="glass-panel shape-process border-blue-500/50 hover:bg-blue-900/20 !p-3 !w-[280px]">
+                    <div class="text-[13px] font-bold text-white">1. Admin Provides Login Credentials</div>
+                </div>
+                <div class="v-line !h-[25px] !bg-blue-500"></div>
+                <div class="arrow-down block !border-t-blue-500"></div>
 
-            <div class="relative flex flex-col items-center w-full z-20">
-                 <div class="shape-decision !w-[140px] !h-[140px] border-blue-500 mb-[22px]">
-                     <div class="decision-text leading-snug text-[13px]">4. Decision:<br>Selected<br>Path?</div>
-                 </div>
-                 
-                 <!-- Right branch explicitly exiting the flow -->
-                 <div class="absolute left-[50%] ml-[70px] top-[40px] flex items-center pointer-events-none w-[340px]">
-                      <div class="w-[100px] border-t-2 border-dashed border-rose-500 z-0 relative">
-                          <div class="absolute left-[-5px] top-[-3px] w-2 h-2 rounded-full bg-rose-500"></div>
-                      </div>
-                      <div class="pointer-events-auto flex flex-col items-center z-30 ml-[5px]">
-                          <span class="text-[10px] font-bold text-rose-300 bg-rose-900 px-3 py-1 rounded shadow mb-2 relative border border-rose-500/50 text-center">Higher Studies /<br>Business</span>
-                          <div class="glass-panel shape-process border-rose-500/50 w-[160px] bg-rose-900/20 text-rose-300 text-[11px] shadow-lg leading-tight p-3 font-bold z-30 relative backdrop-blur-md">Exit Placement Process</div>
-                          <div class="v-line !h-[25px] !bg-rose-500 z-0 relative"></div><div class="arrow-down block !border-t-rose-500 relative z-10 mt-[-4px]"></div>
-                          <div class="shape-oval border-rose-500/50 !bg-[#060913] !px-8 text-rose-500 shadow-xl mt-[-4px] relative z-20">End</div>
-                      </div>
-                 </div>
+                <div class="glass-panel shape-process border-blue-500/50 hover:bg-blue-900/20 !p-3 !w-[280px]">
+                    <div class="text-[13px] font-bold text-white">2. Student Login</div>
+                </div>
+                <div class="v-line !h-[25px] !bg-blue-500"></div>
+                <div class="arrow-down block !border-t-blue-500"></div>
 
-                 <!-- PLACEMENT straight down -->
-                 <span class="text-[10px] font-bold text-emerald-300 bg-emerald-900 px-3 py-1 rounded border border-emerald-500/30 shadow mb-3 mt-[-5px] relative z-10">PLACEMENT</span>
+                <div class="glass-panel shape-process border-blue-400 !w-[280px]">
+                    <div class="font-bold text-sm text-white">3. Career Path Selection</div>
+                    <div class="text-[10px] text-slate-300 uppercase mt-1 tracking-wider">Placement • Higher Studies •
+                        Business</div>
+                </div>
+                <div class="v-line !h-[25px] !bg-blue-500"></div>
+                <div class="arrow-down block !border-t-blue-500"></div>
 
-                 <div class="glass-panel shape-process border-blue-400 !w-[280px]">
-                      <div class="font-bold text-sm text-white">5. Profile Creation</div>
-                      <div class="text-[10px] text-slate-300 uppercase mt-1 tracking-wider">Academics • Skills • Projects</div>
-                 </div>
-            </div>
+                <div class="relative flex flex-col items-center w-full z-20">
+                    <div class="shape-decision border-blue-500 mb-[22px]">
+                        <div class="decision-text leading-snug text-[13px]">4. Decision:<br>Selected<br>Path?</div>
+                    </div>
 
-            <div class="v-line !h-[25px] !bg-blue-500"></div><div class="arrow-down block !border-t-blue-500"></div>
+                    <!-- Right branch explicitly exiting the flow -->
+                    <div
+                        class="absolute left-[50%] ml-[70px] top-[70px] flex items-center pointer-events-none w-[340px]">
+                        <div class="w-[100px] border-t-2 border-dashed border-rose-500 z-0 relative">
+                            <div class="absolute left-[-5px] top-[-3px] w-2 h-2 rounded-full bg-rose-500"></div>
+                        </div>
+                        <div class="pointer-events-auto flex flex-col items-center z-30 ml-[5px]">
+                            <span
+                                class="text-[10px] font-bold text-rose-300 bg-rose-900 px-3 py-1 rounded shadow mb-2 relative border border-rose-500/50 text-center">Higher
+                                Studies /<br>Business</span>
+                            <div
+                                class="glass-panel shape-process border-rose-500/50 w-[160px] bg-rose-900/20 text-rose-300 text-[11px] shadow-lg leading-tight p-3 font-bold z-30 relative backdrop-blur-md">
+                                Exit Placement Process</div>
+                            <div class="v-line !h-[25px] !bg-rose-500 z-0 relative"></div>
+                            <div class="arrow-down block !border-t-rose-500 relative z-10 mt-[-4px]"></div>
+                            <div
+                                class="shape-oval border-rose-500/50 !bg-[#060913] !px-8 text-rose-500 shadow-xl mt-[-4px] relative z-20">
+                                End</div>
+                        </div>
+                    </div>
 
-            <div class="glass-panel shape-process border-blue-400 !w-[280px]">
-                 <div class="font-bold text-sm text-white">6. Resume Upload</div>
-            </div>
-            <div class="v-line !h-[25px] !bg-blue-500"></div><div class="arrow-down block !border-t-blue-500"></div>
+                    <!-- PLACEMENT straight down -->
+                    <span
+                        class="text-[10px] font-bold text-emerald-300 bg-emerald-900 px-3 py-1 rounded border border-emerald-500/30 shadow mb-3 mt-[-5px] relative z-10">PLACEMENT</span>
 
-            <div class="glass-panel shape-process border-blue-400 !w-[280px] bg-blue-900/20">
-                 <div class="badge !bg-emerald-600 !text-white !border-emerald-400/50 shadow-md mb-2">Automation Engine</div>
-                 <div class="font-bold text-sm text-[#93c5fd]">7. Resume Parsing</div>
-                 <div class="text-[10px] text-slate-300 uppercase mt-1">Auto-extract Skills and Details</div>
-            </div>
-            <div class="v-line !h-[35px] !bg-emerald-500 border-dashed"></div><div class="arrow-down block !border-t-emerald-500"></div>
-
-            <!-- STUDENT DASHBOARD -->
-            <div class="dashboard-container !border-emerald-400/80 !bg-emerald-900/20 !w-[850px] shadow-[0_0_60px_rgba(16,185,129,0.15)] !p-8 relative z-30 flex flex-col items-center backdrop-blur-md">
-                 <div class="font-extrabold text-emerald-300 text-2xl tracking-widest uppercase drop-shadow-xl z-20 flex items-center gap-3 relative mb-6">
-                     8. Generate Student Dashboard
-                 </div>
-                 <div class="flex gap-4 w-full justify-center">
-                      <div class="flex-1 glass-panel !p-4 border-emerald-500/30 text-[12px] font-bold text-white shadow-lg bg-black/30 flex items-center justify-center text-center">Skill Analysis & <br>Personalized Roadmap</div>
-                      <div class="flex-1 glass-panel !p-4 border-emerald-500/30 text-[12px] font-bold text-white shadow-lg bg-black/30 flex items-center justify-center text-center">Daily Tasks & <br>Continuous Feedback</div>
-                      <div class="flex-1 glass-panel !p-4 border-emerald-500/30 text-[12px] font-bold text-white shadow-lg bg-black/30 flex items-center justify-center text-center">Preparation Modules <br>(Aptitude, Coding, HR)</div>
-                      <div class="flex-1 glass-panel !p-4 border-emerald-500/30 text-[12px] font-bold text-white shadow-lg bg-black/30 flex items-center justify-center text-center">Mock Interviews</div>
-                 </div>
-            </div>
-
-            <!-- SPLIT INTO COLLEGE VS EXTERNAL -->
-            <div class="v-line !h-[40px] !bg-emerald-500 border-dashed z-20 relative"></div>
-
-            <div class="relative w-[500px] border-t-[3px] border-emerald-500/50 border-dashed z-10 h-[10px]">
-                <div class="absolute top-[-5px] left-[-5px] w-2 h-2 rounded-full bg-emerald-500"></div>
-                <div class="absolute top-[-5px] right-[-5px] w-2 h-2 rounded-full bg-emerald-500"></div>
-            </div>
-
-            <div class="flex gap-[180px] justify-center w-[820px] z-20 relative">
-                <!-- FLOW 1: COLLEGE PLACEMENTS -->
-                <div class="w-[320px] flex flex-col items-center bg-[#0f172a]/80 backdrop-blur-md border border-slate-700/80 rounded-2xl relative shadow-2xl pb-8">
-                     <div class="absolute top-[-40px] h-[40px] border-l-[3px] border-emerald-500/70 border-dashed left-[50%] -translate-x-1/2"></div>
-                     <div class="absolute top-[-10px] left-1/2 -translate-x-1/2 mt-[6px]"><div class="arrow-down block !border-t-emerald-500/70"></div></div>
-
-                     <div class="bg-indigo-600/20 text-indigo-300 font-extrabold w-full py-4 text-center border-b border-indigo-500/30 rounded-t-2xl tracking-widest text-sm uppercase">FLOW 1:<br>College Placements</div>
-
-                     <div class="p-4 flex flex-col items-center w-full grow">
-                         <!-- 9A -->
-                         <div class="glass-panel shape-process border-indigo-400 !w-[270px]">9A. View College Placement Jobs</div>
-                         <div class="v-line !h-[25px] !bg-indigo-500"></div><div class="arrow-down block !border-t-indigo-500"></div>
-
-                         <!-- 10A -->
-                         <div class="glass-panel shape-process border-indigo-400 !w-[270px] bg-indigo-900/10">
-                             <div class="font-bold text-sm text-indigo-200">10A. Job Matching System</div>
-                             <div class="text-[10px] text-slate-300 mt-2 tracking-wider bg-black/40 border border-indigo-500/30 inline-block px-2 py-1 rounded">Based on skills, CGPA, eligibility</div>
-                         </div>
-                         <div class="v-line !h-[25px] !bg-indigo-500"></div><div class="arrow-down block !border-t-indigo-500"></div>
-
-                         <!-- 11A -->
-                         <div class="relative flex flex-col items-center w-full">
-                             <div class="shape-decision !w-[120px] !h-[120px] border-indigo-500 mb-[22px]">
-                                 <div class="decision-text leading-snug">11A. Decision:<br>Is Student<br>Eligible?</div>
-                             </div>
-
-                             <!-- NO branch explicitly pushing left completely OUT of the box boundary -->
-                             <div class="absolute right-[50%] mr-[60px] top-[60px] flex items-center pointer-events-none w-[300px] justify-start flex-row-reverse">
-                                  <div class="w-[130px] border-t-2 border-dashed border-rose-500 z-0 relative">
-                                      <div class="absolute right-[-5px] top-[-3px] w-2 h-2 rounded-full bg-rose-500"></div>
-                                  </div>
-                                  <div class="pointer-events-auto flex flex-col items-center text-center mr-[15px]">
-                                      <span class="text-[10px] font-bold text-rose-300 bg-rose-900 px-3 py-0.5 rounded shadow mb-2 relative z-10 w-fit">NO</span>
-                                      <div class="glass-panel shape-process border-rose-500/50 w-[140px] bg-rose-900/20 text-[#fda4af] text-[11px] shadow-lg leading-tight p-3 z-10 font-bold tracking-wide">Not Eligible<br><span class="text-[9px] opacity-80 mt-1 block font-normal">Return to Dashboard</span></div>
-                                      <!-- Back to Dashboard Dash -->
-                                      <div class="absolute top-[80px] right-[50%] border-t-2 border-r-2 border-rose-500/50 border-dashed w-[20px] h-[360px] rounded-tr pointer-events-none z-0"></div>
-                                      <div class="absolute top-[-280px] right-[-20px] rotate-[-90deg]"><div class="arrow-down block !border-t-rose-500/50 !scale-[0.6]"></div></div>
-                                  </div>
-                             </div>
-
-                             <!-- YES straight down -->
-                             <span class="text-[10px] font-bold text-emerald-300 bg-emerald-900 px-3 py-1 rounded shadow z-10 relative mb-3 mt-[-5px]">YES (Continue)</span>
-                         </div>
-
-                         <!-- 12A -->
-                         <div class="glass-panel shape-process border-indigo-400 !w-[270px]">12A. View Job Details</div>
-                         <div class="v-line !h-[25px] !bg-indigo-500"></div><div class="arrow-down block !border-t-indigo-500"></div>
-                         
-                         <!-- 13A -->
-                         <div class="glass-panel shape-process border-indigo-400 !w-[270px]">
-                              <div class="font-extrabold text-[#818cf8] text-sm">13A. One-click Apply</div>
-                              <div class="text-[10px] text-indigo-200/80 tracking-widest uppercase mt-1">(Internal System)</div>
-                         </div>
-                         <div class="v-line !h-[25px] !bg-indigo-500"></div><div class="arrow-down block !border-t-indigo-500"></div>
-
-                         <!-- 14A -->
-                         <div class="glass-panel shape-process border-indigo-400 !w-[270px] bg-indigo-900/10">
-                              <div class="font-bold text-xs mb-2 text-white">14A. Track Application Status</div>
-                              <div class="text-[10px] bg-black/40 border border-indigo-500/30 rounded p-2 text-indigo-200 shadow-inner tracking-wide">
-                                  Applied → Shortlisted → Selected → Rejected
-                              </div>
-                         </div>
-                         <div class="v-line !h-[25px] !bg-indigo-500"></div><div class="arrow-down block !border-t-indigo-500"></div>
-
-                         <!-- 15A -->
-                         <div class="glass-panel shape-process border-indigo-400 !w-[270px] bg-indigo-900/10">
-                              <div class="font-bold text-xs mb-2 text-white">15A. Track Interview Rounds</div>
-                              <div class="text-[10px] bg-black/40 border border-indigo-500/30 rounded p-2 text-[#fbcfe8] shadow-inner tracking-wide uppercase">
-                                  Aptitude → Technical → HR
-                              </div>
-                         </div>
-                         <div class="v-line !h-[25px] !bg-indigo-500"></div><div class="arrow-down block !border-t-indigo-500"></div>
-
-                         <!-- 16A -->
-                         <div class="glass-panel shape-process border-indigo-400 !w-[270px] bg-indigo-900/30 shadow-xl">
-                              <div class="font-extrabold text-[#c7d2fe]">16A. Final Outcome</div>
-                              <div class="text-[11px] text-white tracking-widest uppercase mt-1">(Selected / Rejected)</div>
-                         </div>
-
-                         <div class="flex-grow min-h-[40px]"></div>
-                     </div>
+                    <div class="glass-panel shape-process border-blue-400 !w-[280px]">
+                        <div class="font-bold text-sm text-white">5. Profile Creation</div>
+                        <div class="text-[10px] text-slate-300 uppercase mt-1 tracking-wider">Academics • Skills •
+                            Projects</div>
+                    </div>
                 </div>
 
-                <!-- FLOW 2: EXTERNAL JOBS -->
-                <div class="w-[320px] flex flex-col items-center bg-[#0f172a]/80 backdrop-blur-md border border-slate-700/80 rounded-2xl relative shadow-2xl pb-8">
-                     <div class="absolute top-[-40px] h-[40px] border-l-[3px] border-emerald-500/70 border-dashed left-[50%] -translate-x-1/2"></div>
-                     <div class="absolute top-[-10px] left-1/2 -translate-x-1/2 mt-[6px]"><div class="arrow-down block !border-t-emerald-500/70"></div></div>
+                <div class="v-line !h-[25px] !bg-blue-500"></div>
+                <div class="arrow-down block !border-t-blue-500"></div>
 
-                     <div class="bg-cyan-600/20 text-cyan-300 font-extrabold w-full py-4 text-center border-b border-cyan-500/30 rounded-t-2xl tracking-widest text-sm uppercase">FLOW 2:<br>External Jobs</div>
+                <div class="glass-panel shape-process border-blue-400 !w-[280px]">
+                    <div class="font-bold text-sm text-white">6. Resume Upload</div>
+                </div>
+                <div class="v-line !h-[25px] !bg-blue-500"></div>
+                <div class="arrow-down block !border-t-blue-500"></div>
 
-                     <div class="p-4 flex flex-col items-center w-full grow">
-                         <!-- 9B -->
-                         <div class="glass-panel shape-process border-cyan-400 !w-[270px]">9B. Fetch Jobs from External Sources</div>
-                         <div class="v-line !h-[45px] !bg-cyan-500"></div><div class="arrow-down block !border-t-cyan-500"></div>
+                <div class="glass-panel shape-process border-blue-400 !w-[280px] bg-blue-900/20">
+                    <div class="badge !bg-emerald-600 !text-white !border-emerald-400/50 shadow-md mb-2">Automation
+                        Engine</div>
+                    <div class="font-bold text-sm text-[#93c5fd]">7. Resume Parsing</div>
+                    <div class="text-[10px] text-slate-300 uppercase mt-1">Auto-extract Skills and Details</div>
+                </div>
+                <div class="v-line !h-[35px] !bg-emerald-500 border-dashed"></div>
+                <div class="arrow-down block !border-t-emerald-500"></div>
 
-                         <!-- 10B -->
-                         <div class="glass-panel shape-process border-cyan-400 !w-[270px]">10B. Display External Job Listings</div>
-                         <div class="v-line !h-[45px] !bg-cyan-500"></div><div class="arrow-down block !border-t-cyan-500"></div>
+                <!-- STUDENT DASHBOARD -->
+                <div
+                    class="dashboard-container !border-emerald-400/80 !bg-emerald-900/20 !w-[850px] shadow-[0_0_60px_rgba(16,185,129,0.15)] !p-8 relative z-30 flex flex-col items-center backdrop-blur-md">
+                    <div
+                        class="font-extrabold text-emerald-300 text-2xl tracking-widest uppercase drop-shadow-xl z-20 flex items-center gap-3 relative mb-6">
+                        8. Generate Student Dashboard
+                    </div>
+                    <div class="flex gap-4 w-full justify-center">
+                        <div class="flex-1 flex flex-col items-center z-10 w-full relative mt-2">
+                            <div
+                                class="glass-panel !overflow-visible !p-3 border-fuchsia-500/50 text-[11px] font-bold text-fuchsia-100 shadow-[0_0_15px_rgba(217,70,239,0.2)] bg-fuchsia-900/30 flex flex-col items-center justify-center text-center w-full relative">
+                                <span class="mt-1 text-fuchsia-200">1. Analyze Profile</span>
+                            </div>
+                            <div class="v-line !h-[12px] !bg-fuchsia-500/70 border-dashed"></div>
+                            <div class="arrow-down block !border-t-fuchsia-500/70 !scale-75 mt-[-2px]"></div>
 
-                         <!-- 11B -->
-                         <div class="glass-panel shape-process border-cyan-400 !w-[270px]">11B. View Job Details</div>
-                         <div class="v-line !h-[45px] !bg-cyan-500"></div><div class="arrow-down block !border-t-cyan-500"></div>
+                            <div
+                                class="glass-panel !py-2 !px-1 border-fuchsia-500/40 text-[10px] font-bold text-fuchsia-100 shadow-lg bg-fuchsia-900/20 flex flex-col items-center justify-center text-center w-[90%]">
+                                <span class="text-fuchsia-300">2. Generate Analysis</span>
+                            </div>
+                            <div class="v-line !h-[12px] !bg-fuchsia-500/70 border-dashed"></div>
+                            <div class="arrow-down block !border-t-fuchsia-500/70 !scale-75 mt-[-2px]"></div>
 
-                         <!-- 12B -->
-                         <div class="glass-panel shape-process border-rose-500 !w-[270px] bg-rose-900/10 shadow-[0_0_15px_rgba(244,63,94,0.15)] pb-4 pt-4 mt-[10px]">
-                              <div class="font-bold text-white text-sm">12B. Redirect to External Application Link</div>
-                              <div class="text-[10px] text-rose-300 mt-3 bg-black/40 border border-rose-500/50 rounded py-2 px-3 max-w-[90%] mx-auto font-bold tracking-wider leading-snug">(Note: No internal tracking for external jobs)</div>
-                              <div class="text-[18px] mt-3 opacity-80">🔗</div>
-                         </div>
+                            <div
+                                class="glass-panel !py-2 !px-1 border-fuchsia-500/40 text-[10px] font-bold text-fuchsia-100 shadow-lg bg-fuchsia-900/20 flex flex-col items-center justify-center text-center w-[90%]">
+                                <span class="text-fuchsia-300">3. Build AI Roadmap</span>
+                            </div>
+                        </div>
 
-                         <div class="flex-grow min-h-[40px]"></div>
-                     </div>
+                        <div class="flex-1 flex flex-col items-center z-10 w-full relative mt-2">
+                            <div
+                                class="glass-panel !overflow-visible !p-3 border-cyan-500/50 text-[11px] font-bold text-cyan-100 shadow-[0_0_15px_rgba(6,182,212,0.2)] bg-cyan-900/30 flex flex-col items-center justify-center text-center w-full relative">
+                                <span class="mt-1 text-cyan-200">1. Enter Course/Topic</span>
+                            </div>
+                            <div class="v-line !h-[12px] !bg-cyan-500/70 border-dashed"></div>
+                            <div class="arrow-down block !border-t-cyan-500/70 !scale-75 mt-[-2px]"></div>
+
+                            <div
+                                class="glass-panel !py-2 !px-1 border-cyan-500/40 text-[10px] font-bold text-cyan-100 shadow-lg bg-cyan-900/20 flex flex-col items-center justify-center text-center w-[90%]">
+                                <span class="text-cyan-300">2. AI Generates Modules</span>
+                            </div>
+                            <div class="v-line !h-[12px] !bg-cyan-500/70 border-dashed"></div>
+                            <div class="arrow-down block !border-t-cyan-500/70 !scale-75 mt-[-2px]"></div>
+
+                            <div
+                                class="glass-panel !py-2 !px-1 border-cyan-500/40 text-[10px] font-bold text-cyan-100 shadow-lg bg-cyan-900/20 flex flex-col items-center justify-center text-center w-[90%]">
+                                <span class="text-cyan-300">3. Dynamic Test Created</span>
+                            </div>
+                        </div>
+                        <div class="flex-1 flex flex-col items-center z-10 w-full relative mt-2">
+                            <div
+                                class="glass-panel !overflow-visible !p-3 border-amber-500/50 text-[11px] font-bold text-amber-100 shadow-[0_0_15px_rgba(245,158,11,0.2)] bg-amber-900/30 flex flex-col items-center justify-center text-center w-full relative">
+                                <span class="mt-1 text-amber-200">1. Select Job Role</span>
+                            </div>
+                            <div class="v-line !h-[12px] !bg-amber-500/70 border-dashed"></div>
+                            <div class="arrow-down block !border-t-amber-500/70 !scale-75 mt-[-2px]"></div>
+
+                            <div
+                                class="glass-panel !py-2 !px-1 border-amber-500/40 text-[10px] font-bold text-amber-100 shadow-lg bg-amber-900/20 flex flex-col items-center justify-center text-center w-[90%]">
+                                <span class="text-amber-300">2. Real-time Interview</span>
+                            </div>
+                            <div class="v-line !h-[12px] !bg-amber-500/70 border-dashed"></div>
+                            <div class="arrow-down block !border-t-amber-500/70 !scale-75 mt-[-2px]"></div>
+
+                            <div
+                                class="glass-panel !py-2 !px-1 border-amber-500/40 text-[10px] font-bold text-amber-100 shadow-lg bg-amber-900/20 flex flex-col items-center justify-center text-center w-[90%]">
+                                <span class="text-amber-300">3. AI Feedback Score</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SPLIT INTO COLLEGE VS EXTERNAL -->
+                <div class="h-[25px] border-l-[3px] border-emerald-500/70 border-dashed z-20 relative mx-auto"></div>
+
+                <!-- Horizontal Splitting Bar -->
+                <div class="relative w-[500px] border-t-[3px] border-emerald-500/70 border-dashed z-10 mx-auto">
+                    <!-- Anchor Nodes -->
+                    <div class="absolute top-[-5px] left-[-5px] w-2 h-2 rounded-full bg-emerald-500"></div>
+                    <div class="absolute top-[-5px] right-[-5px] w-2 h-2 rounded-full bg-emerald-500"></div>
+
+                    <!-- Downward Lines from Ends -->
+                    <div
+                        class="absolute top-[0px] left-[-2px] h-[30px] border-l-[3px] border-dashed border-emerald-500/70">
+                    </div>
+                    <div
+                        class="absolute top-[0px] right-[-2px] h-[30px] border-r-[3px] border-dashed border-emerald-500/70">
+                    </div>
+
+                    <!-- Arrow Heads -->
+                    <div class="absolute top-[24px] left-[-6.5px]">
+                        <div class="arrow-down block !border-t-emerald-500/70"></div>
+                    </div>
+                    <div class="absolute top-[24px] right-[-6.5px]">
+                        <div class="arrow-down block !border-t-emerald-500/70"></div>
+                    </div>
+                </div>
+
+                <div class="flex gap-[180px] justify-center w-[820px] z-20 relative mt-[30px]">
+                    <!-- FLOW 1: COLLEGE PLACEMENTS -->
+                    <div
+                        class="w-[320px] flex flex-col items-center bg-[#0f172a]/80 backdrop-blur-md border border-slate-700/80 rounded-2xl relative shadow-2xl pb-8">
+                        <div
+                            class="bg-indigo-600/20 text-indigo-300 font-extrabold w-full py-4 text-center border-b border-indigo-500/30 rounded-t-2xl tracking-widest text-sm uppercase">
+                            FLOW 1:<br>College Placements</div>
+
+                        <div class="p-4 flex flex-col items-center w-full grow">
+                            <!-- 9A -->
+                            <div class="glass-panel shape-process border-indigo-400 !w-[270px]">9A. View College
+                                Placement Jobs</div>
+                            <div class="v-line !h-[25px] !bg-indigo-500"></div>
+                            <div class="arrow-down block !border-t-indigo-500"></div>
+
+                            <!-- 10A -->
+                            <div class="glass-panel shape-process border-indigo-400 !w-[270px] bg-indigo-900/10">
+                                <div class="font-bold text-sm text-indigo-200">10A. Job Matching System</div>
+                                <div
+                                    class="text-[10px] text-slate-300 mt-2 tracking-wider bg-black/40 border border-indigo-500/30 inline-block px-2 py-1 rounded">
+                                    Based on skills, CGPA, eligibility</div>
+                            </div>
+                            <div class="v-line !h-[25px] !bg-indigo-500"></div>
+                            <div class="arrow-down block !border-t-indigo-500"></div>
+
+                            <!-- 11A -->
+                            <div class="relative flex flex-col items-center w-full">
+                                <div class="shape-decision border-indigo-500 mb-[22px]">
+                                    <div class="decision-text leading-snug">11A. Decision:<br>Is Student<br>Eligible?
+                                    </div>
+                                </div>
+
+                                <!-- NO branch explicitly pushing left completely OUT of the box boundary -->
+                                <div
+                                    class="absolute right-[50%] mr-[70px] top-[70px] flex items-center pointer-events-none w-[300px] justify-start flex-row-reverse">
+                                    <div class="w-[130px] border-t-2 border-dashed border-rose-500 z-0 relative">
+                                        <div class="absolute right-[-5px] top-[-3px] w-2 h-2 rounded-full bg-rose-500">
+                                        </div>
+                                    </div>
+                                    <div class="pointer-events-auto flex flex-col items-center text-center mr-[15px]">
+                                        <span
+                                            class="text-[10px] font-bold text-rose-300 bg-rose-900 px-3 py-0.5 rounded shadow mb-2 relative z-10 w-fit">NO</span>
+                                        <div
+                                            class="glass-panel shape-process border-rose-500/50 w-[140px] bg-rose-900/20 text-[#fda4af] text-[11px] shadow-lg leading-tight p-3 z-10 font-bold tracking-wide">
+                                            Not Eligible<br><span
+                                                class="text-[9px] opacity-80 mt-1 block font-normal">Return to
+                                                Dashboard</span></div>
+                                        <!-- Back to Dashboard Dash -->
+                                        <div
+                                            class="absolute top-[80px] right-[50%] border-t-2 border-r-2 border-rose-500/50 border-dashed w-[20px] h-[360px] rounded-tr pointer-events-none z-0">
+                                        </div>
+                                        <div class="absolute top-[-280px] right-[-20px] rotate-[-90deg]">
+                                            <div class="arrow-down block !border-t-rose-500/50 !scale-[0.6]"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- YES straight down -->
+                                <span
+                                    class="text-[10px] font-bold text-emerald-300 bg-emerald-900 px-3 py-1 rounded shadow z-10 relative mb-3 mt-[-5px]">YES
+                                    (Continue)</span>
+                            </div>
+
+                            <!-- 12A -->
+                            <div class="glass-panel shape-process border-indigo-400 !w-[270px]">12A. View Job Details
+                            </div>
+                            <div class="v-line !h-[25px] !bg-indigo-500"></div>
+                            <div class="arrow-down block !border-t-indigo-500"></div>
+
+                            <!-- 13A -->
+                            <div class="glass-panel shape-process border-indigo-400 !w-[270px]">
+                                <div class="font-extrabold text-[#818cf8] text-sm">13A. One-click Apply</div>
+                                <div class="text-[10px] text-indigo-200/80 tracking-widest uppercase mt-1">(Internal
+                                    System)</div>
+                            </div>
+                            <div class="v-line !h-[25px] !bg-indigo-500"></div>
+                            <div class="arrow-down block !border-t-indigo-500"></div>
+
+                            <!-- 14A -->
+                            <div class="glass-panel shape-process border-indigo-400 !w-[270px] bg-indigo-900/10">
+                                <div class="font-bold text-xs mb-2 text-white">14A. Track Application Status</div>
+                                <div
+                                    class="text-[10px] bg-black/40 border border-indigo-500/30 rounded p-2 text-indigo-200 shadow-inner tracking-wide">
+                                    Applied → Shortlisted → Selected → Rejected
+                                </div>
+                            </div>
+                            <div class="v-line !h-[25px] !bg-indigo-500"></div>
+                            <div class="arrow-down block !border-t-indigo-500"></div>
+
+                            <!-- 15A -->
+                            <div class="glass-panel shape-process border-indigo-400 !w-[270px] bg-indigo-900/10">
+                                <div class="font-bold text-xs mb-2 text-white">15A. Track Interview Rounds</div>
+                                <div
+                                    class="text-[10px] bg-black/40 border border-indigo-500/30 rounded p-2 text-[#fbcfe8] shadow-inner tracking-wide uppercase">
+                                    Aptitude → Technical → HR
+                                </div>
+                            </div>
+                            <div class="v-line !h-[25px] !bg-indigo-500"></div>
+                            <div class="arrow-down block !border-t-indigo-500"></div>
+
+                            <!-- 16A -->
+                            <div
+                                class="glass-panel shape-process border-indigo-400 !w-[270px] bg-indigo-900/30 shadow-xl">
+                                <div class="font-extrabold text-[#c7d2fe]">16A. Final Outcome</div>
+                                <div class="text-[11px] text-white tracking-widest uppercase mt-1">(Selected / Rejected)
+                                </div>
+                            </div>
+
+                            <div class="flex-grow min-h-[40px]"></div>
+                        </div>
+                    </div>
+
+                    <!-- FLOW 2: EXTERNAL JOBS -->
+                    <div
+                        class="w-[320px] flex flex-col items-center bg-[#0f172a]/80 backdrop-blur-md border border-slate-700/80 rounded-2xl relative shadow-2xl pb-8">
+                        <div
+                            class="bg-cyan-600/20 text-cyan-300 font-extrabold w-full py-4 text-center border-b border-cyan-500/30 rounded-t-2xl tracking-widest text-sm uppercase">
+                            FLOW 2:<br>External Jobs</div>
+
+                        <div class="p-4 flex flex-col items-center w-full grow">
+                            <!-- 9B -->
+                            <div class="glass-panel shape-process border-cyan-400 !w-[270px]">9B. Fetch Jobs from
+                                External Sources</div>
+                            <div class="v-line !h-[45px] !bg-cyan-500"></div>
+                            <div class="arrow-down block !border-t-cyan-500"></div>
+
+                            <!-- 10B -->
+                            <div class="glass-panel shape-process border-cyan-400 !w-[270px]">10B. Display External Job
+                                Listings</div>
+                            <div class="v-line !h-[45px] !bg-cyan-500"></div>
+                            <div class="arrow-down block !border-t-cyan-500"></div>
+
+                            <!-- 11B -->
+                            <div class="glass-panel shape-process border-cyan-400 !w-[270px]">11B. View Job Details
+                            </div>
+                            <div class="v-line !h-[45px] !bg-cyan-500"></div>
+                            <div class="arrow-down block !border-t-cyan-500"></div>
+
+                            <!-- 12B -->
+                            <div
+                                class="glass-panel shape-process border-rose-500 !w-[270px] bg-rose-900/10 shadow-[0_0_15px_rgba(244,63,94,0.15)] pb-4 pt-4 mt-[10px]">
+                                <div class="font-bold text-white text-sm">12B. Redirect to External Application Link
+                                </div>
+                            </div>
+
+                            <div class="flex-grow min-h-[40px]"></div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- MERGE BOTH TO END -->
+                <div class="flex flex-col items-center relative w-full translate-y-[-20px] pointer-events-none">
+                    <!-- 500px matches exactly the horizontal centerline of Pillar 1 to Pillar 2 -->
+                    <div class="relative w-[500px] border-b-[3px] border-dashed border-slate-500 h-[20px] z-0 mt-5">
+                    </div>
+                    <div class="v-line !h-[40px] !bg-slate-500 border-dashed border-l-[3px] !w-0 z-0"></div>
+
+                    <div
+                        class="shape-oval !bg-slate-800 border-slate-500 shadow-[0_0_80px_rgba(255,255,255,0.05)] !text-4xl !px-32 !py-6 tracking-widest text-[#94a3b8] relative z-20 pointer-events-auto">
+                        17. End</div>
                 </div>
 
             </div>
 
-            <!-- MERGE BOTH TO END -->
-            <div class="flex flex-col items-center relative w-full translate-y-[-20px] pointer-events-none">
-                 <!-- 500px matches exactly the horizontal centerline of Pillar 1 to Pillar 2 -->
-                 <div class="relative w-[500px] border-b-[3px] border-dashed border-slate-500 h-[20px] z-0 mt-5"></div>
-                 <div class="v-line !h-[40px] !bg-slate-500 border-dashed border-l-[3px] !w-0 z-0"></div>
-                 
-                 <div class="shape-oval !bg-slate-800 border-slate-500 shadow-[0_0_80px_rgba(255,255,255,0.05)] !text-4xl !px-32 !py-6 tracking-widest text-[#94a3b8] relative z-20 pointer-events-auto">17. End</div>
+
+            <!-- ============================================== -->
+            <!--        ADMIN MULTI-PIPELINE DIAGRAM            -->
+            <!-- ============================================== -->
+            <div id="admin-diagram"
+                class="flex flex-col items-center w-[2800px] absolute pt-[80px] pb-32 z-10 transition-opacity">
+
+                <!-- MASTER START -->
+                <div class="shape-oval border-teal-400 shadow-[0_0_20px_rgba(20,184,166,0.3)] !px-12 !py-3">1. Start
+                </div>
+                <div class="v-line !h-[30px] !bg-teal-500"></div>
+                <div class="arrow-down block !border-t-teal-500"></div>
+
+                <div class="glass-panel shape-process border-teal-500/50 hover:bg-teal-900/20 !p-3 shadow-lg">
+                    <div class="text-[13px] font-bold text-white">2. Admin Login</div>
+                </div>
+                <div class="v-line !h-[30px] !bg-teal-500"></div>
+                <div class="arrow-down block !border-t-teal-500"></div>
+
+                <div class="glass-panel shape-process border-teal-500/50 hover:bg-teal-900/20 !p-3 shadow-lg">
+                    <div class="text-[13px] font-bold text-white">3. Load Admin Dashboard</div>
+                </div>
+                <div class="v-line !h-[50px] !bg-teal-500"></div>
+                <div class="arrow-down block !border-t-teal-500"></div>
+
+                <!-- DASHBOARD HUB -->
+                <div
+                    class="dashboard-container !border-amber-400/80 !bg-amber-900/20 !w-[1600px] shadow-[0_0_80px_rgba(245,158,11,0.15)] !p-6 !py-10 mb-0 relative z-30 flex justify-center items-center backdrop-blur-md">
+                    <div class="absolute w-[80%] h-1/2 bg-amber-500/10 blur-[100px] pointer-events-none rounded-full">
+                    </div>
+                    <div
+                        class="font-extrabold text-amber-300 text-2xl tracking-widest uppercase drop-shadow-xl z-20 flex items-center gap-3 relative">
+                        <svg class="w-8 h-8 text-amber-500" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                        </svg>
+                        4. Admin Dashboard (Central Control Hub)
+                    </div>
+                </div>
+
+                <!-- Connection from Dashboard down to Artery -->
+                <div class="v-line !h-[30px] !bg-amber-500 border-dashed z-20"></div>
+
+                <!-- HORIZONTAL ARTERY connecting 7 pillars -->
+                <!-- 7 pillars * 320px width = 2240px. 6 gaps * 40px = 240px. Total = 2480px. -->
+                <!-- Artery spans from center of first pillar (160px from left) to center of last (160px from right) -> 2480 - 320 = 2160px -->
+                <div class="w-[2160px] border-t-[3px] border-amber-500/50 border-dashed z-10 relative">
+                    <div class="absolute top-[-5px] left-[-5px] w-2 h-2 rounded-full bg-amber-500"></div>
+                    <div class="absolute top-[-5px] right-[-5px] w-2 h-2 rounded-full bg-amber-500"></div>
+                </div>
+
+                <!-- 7 MODULE PILLARS -->
+                <div class="flex gap-[40px] justify-center w-[2480px] z-20 relative">
+
+                    <!-- ============================================== -->
+                    <!-- A. STUDENT MANAGEMENT                          -->
+                    <!-- ============================================== -->
+                    <div
+                        class="w-[320px] flex flex-col items-center bg-[#0f172a]/80 backdrop-blur-md border border-slate-700/80 rounded-2xl relative shadow-2xl">
+                        <div class="v-line !h-[40px] !bg-blue-500/70 border-dashed mt-0 absolute top-[-40px]"></div>
+                        <div class="arrow-down block !border-t-blue-500/70 absolute top-[0px]"></div>
+
+                        <div
+                            class="bg-blue-600/20 text-blue-300 font-extrabold w-full py-4 text-center border-b border-blue-500/30 rounded-t-2xl tracking-widest text-sm shadow-[0_4px_20px_rgba(37,99,235,0.1)]">
+                            MODULE A<br>STUDENT MGMT</div>
+
+                        <div class="p-4 flex flex-col items-center w-full grow">
+                            <div class="glass-panel shape-process border-blue-400 !w-[270px]">5. View / Upload Students
+                            </div>
+                            <div class="v-line !h-[15px] !bg-blue-500"></div>
+                            <div class="arrow-down block !border-t-blue-500"></div>
+
+                            <div class="shape-decision !w-[110px] !h-[110px] border-blue-500 mb-[22px]">
+                                <div class="decision-text">6. Bulk or<br>Manual Engine?</div>
+                            </div>
+
+                            <!-- Manual vs Bulk Branch -->
+                            <div class="flex gap-3 w-full justify-center text-center mt-0">
+                                <div class="flex-1 flex flex-col items-center">
+                                    <div
+                                        class="w-1/2 h-[15px] border-t-2 border-l-2 border-dashed border-blue-500 translate-x-1/2 rounded-tl mb-2 z-0 relative">
+                                        <div class="absolute bottom-[-5px] left-[-4px]">
+                                            <div class="arrow-down block !border-t-blue-500 !scale-[0.6]"></div>
+                                        </div>
+                                    </div>
+                                    <span
+                                        class="text-[9px] font-bold text-slate-400 bg-slate-800 px-1 rounded shadow mb-1">BULK
+                                        CSV</span>
+                                    <div
+                                        class="glass-panel text-[11px] p-2 border-blue-500/50 w-[120px] mb-2 font-bold bg-blue-900/10">
+                                        Upload CSV</div>
+                                    <div
+                                        class="glass-panel text-[11px] p-2 border-blue-500/50 w-[120px] mb-2 font-bold bg-blue-900/10">
+                                        Validate Data</div>
+                                    <div
+                                        class="glass-panel text-[11px] p-2 border-blue-500/50 w-[120px] font-bold bg-blue-900/10">
+                                        Store DB</div>
+                                </div>
+                                <div class="flex-1 flex flex-col items-center">
+                                    <div
+                                        class="w-1/2 h-[15px] border-t-2 border-r-2 border-dashed border-blue-500 -translate-x-1/2 rounded-tr mb-2 z-0 relative">
+                                        <div class="absolute bottom-[-5px] right-[-4px]">
+                                            <div class="arrow-down block !border-t-blue-500 !scale-[0.6]"></div>
+                                        </div>
+                                    </div>
+                                    <span
+                                        class="text-[9px] font-bold text-slate-400 bg-slate-800 px-1 rounded shadow mb-1">MANUAL</span>
+                                    <div
+                                        class="glass-panel text-[11px] p-2 border-blue-500/50 w-[120px] mb-2 font-bold bg-blue-900/10">
+                                        Enter Details</div>
+                                    <div
+                                        class="glass-panel text-[11px] p-2 border-blue-500/50 w-[120px] mb-2 font-bold bg-blue-900/10 opacity-0 pointer-events-none">
+                                        Spacer</div>
+                                    <div
+                                        class="glass-panel text-[11px] p-2 border-blue-500/50 w-[120px] font-bold bg-blue-900/10">
+                                        Save Form</div>
+                                </div>
+                            </div>
+
+                            <!-- Merge branch -->
+                            <div class="flex gap-3 w-[252px] justify-center text-center mt-2 relative">
+                                <div class="flex-1">
+                                    <div
+                                        class="w-1/2 h-[15px] border-b-2 border-l-2 border-dashed border-blue-500 translate-x-1/2 rounded-bl self-start relative drop-shadow z-0">
+                                    </div>
+                                </div>
+                                <div class="flex-1">
+                                    <div
+                                        class="w-1/2 h-[15px] border-b-2 border-r-2 border-dashed border-blue-500 -translate-x-1/2 rounded-br self-end relative drop-shadow">
+                                    </div>
+                                </div>
+                                <div class="absolute bottom-[-5px] left-[50%] -translate-x-1/2 z-10">
+                                    <div class="arrow-down block !border-t-blue-500 !scale-[0.6]"></div>
+                                </div>
+                            </div>
+
+                            <div class="glass-panel shape-process border-blue-400 !w-[270px] mt-[-6px]">
+                                <div class="font-bold text-sm">7. Assign Attributes</div>
+                                <div class="text-[9px] text-slate-300 mt-1 uppercase">CGPA • Branch • Skills • Category
+                                    Tag</div>
+                            </div>
+                            <div class="v-line !h-[15px] !bg-blue-500"></div>
+                            <div class="arrow-down block !border-t-blue-500"></div>
+
+                            <div class="glass-panel shape-process border-blue-400 !w-[270px]">
+                                <div class="font-bold text-sm">8. Apply Restrictions</div>
+                                <div class="text-[9px] text-slate-300 mt-1 uppercase">Priority • Blacklist • Special
+                                </div>
+                            </div>
+                            <div class="v-line !h-[15px] !bg-blue-500"></div>
+                            <div class="arrow-down block !border-t-blue-500"></div>
+
+                            <div class="glass-panel shape-process border-blue-400 !w-[270px] bg-blue-900/30">
+                                <div class="font-extrabold text-[#93c5fd]">9. Store / Update Database</div>
+                            </div>
+
+                            <!-- Pushes the bottom vertical line down cleanly -->
+                            <div class="flex-grow min-h-[40px]"></div>
+                        </div>
+                    </div>
+
+                    <!-- ============================================== -->
+                    <!-- B. JOB MANAGEMENT                              -->
+                    <!-- ============================================== -->
+                    <div
+                        class="w-[320px] flex flex-col items-center bg-[#0f172a]/80 backdrop-blur-md border border-slate-700/80 rounded-2xl relative shadow-2xl">
+                        <div class="v-line !h-[40px] !bg-indigo-500/70 border-dashed mt-0 absolute top-[-40px]"></div>
+                        <div class="arrow-down block !border-t-indigo-500/70 absolute top-[0px]"></div>
+
+                        <div
+                            class="bg-indigo-600/20 text-indigo-300 font-extrabold w-full py-4 text-center border-b border-indigo-500/30 rounded-t-2xl tracking-widest text-sm shadow-[0_4px_20px_rgba(99,102,241,0.1)]">
+                            MODULE B<br>JOB MGMT</div>
+
+                        <div class="p-4 flex flex-col items-center w-full grow">
+                            <div class="glass-panel shape-process border-indigo-400 !w-[270px]">10. Create / Add Job
+                            </div>
+                            <div class="v-line !h-[15px] !bg-indigo-500"></div>
+                            <div class="arrow-down block !border-t-indigo-500"></div>
+
+                            <div class="glass-panel shape-process border-indigo-400 !w-[270px] py-3">
+                                <div class="font-bold text-sm">11. Enter Job Details</div>
+                                <div class="text-[9px] text-slate-300 mt-1 uppercase">Company • Role • Package • Type
+                                </div>
+                            </div>
+                            <div class="v-line !h-[15px] !bg-indigo-500"></div>
+                            <div class="arrow-down block !border-t-indigo-500"></div>
+
+                            <div class="glass-panel shape-process border-indigo-400 !w-[270px]">
+                                <div class="font-bold text-sm">12. Define Eligibility Criteria</div>
+                                <div class="text-[9px] text-slate-300 mt-1 uppercase">CGPA Cutoff • Branch Allowed •
+                                    Skills</div>
+                            </div>
+                            <div class="v-line !h-[15px] !bg-indigo-500"></div>
+                            <div class="arrow-down block !border-t-indigo-500"></div>
+
+                            <div
+                                class="glass-panel shape-process border-rose-500 !w-[270px] bg-rose-900/10 shadow-[0_0_15px_rgba(244,63,94,0.15)]">
+                                <div class="font-extrabold text-rose-300 text-sm">13. Define Allowed Categories</div>
+                                <div
+                                    class="text-[9px] text-[#fca5a5] mt-1 bg-rose-900/50 p-1 rounded font-bold border border-rose-500/30 uppercase tracking-widest">
+                                    e.g. ONLY ABC CATEGORY</div>
+                            </div>
+                            <div class="v-line !h-[15px] !bg-indigo-500"></div>
+                            <div class="arrow-down block !border-t-indigo-500"></div>
+
+                            <div class="shape-decision !w-[100px] !h-[100px] border-indigo-500 mb-[22px]">
+                                <div class="decision-text">14. Job Source?</div>
+                            </div>
+
+                            <div class="flex gap-4 w-[260px] justify-center mt-0">
+                                <div class="flex-1 flex flex-col items-center">
+                                    <div
+                                        class="w-[50%] h-[15px] border-t-2 border-l-2 border-dashed border-indigo-500 translate-x-1/2 rounded-tl mb-2 pointer-events-none self-start relative">
+                                        <div class="absolute bottom-[-5px] left-[-4px] z-10">
+                                            <div class="arrow-down block !border-t-indigo-500 !scale-[0.6]"></div>
+                                        </div>
+                                    </div>
+                                    <span
+                                        class="text-[9px] font-bold text-slate-400 bg-slate-800 px-1 rounded shadow mb-1">EXTERNAL</span>
+                                    <div
+                                        class="glass-panel text-[11px] p-2 border-indigo-500/50 w-full mb-2 bg-indigo-900/10 h-full flex flex-col justify-center text-rose-300">
+                                        15. Mark Ext<br><span class="text-[8px] opacity-80">(No internal
+                                            tracking)</span></div>
+                                </div>
+                                <div class="flex-1 flex flex-col items-center">
+                                    <div
+                                        class="w-[50%] h-[15px] border-t-2 border-r-2 border-dashed border-indigo-500 -translate-x-1/2 rounded-tr mb-2 pointer-events-none self-end relative">
+                                        <div class="absolute bottom-[-5px] right-[-4px] z-10">
+                                            <div class="arrow-down block !border-t-indigo-500 !scale-[0.6]"></div>
+                                        </div>
+                                    </div>
+                                    <span
+                                        class="text-[9px] font-bold text-slate-400 bg-slate-800 px-1 rounded shadow mb-1">INTERNAL</span>
+                                    <div
+                                        class="glass-panel text-[11px] p-2 border-indigo-500/50 w-full mb-2 bg-indigo-900/10 h-full flex flex-col justify-center">
+                                        16. Full Pipeline Track</div>
+                                </div>
+                            </div>
+
+                            <div class="flex gap-4 w-[260px] justify-center mt-0 text-center relative">
+                                <div class="flex-1">
+                                    <div
+                                        class="w-1/2 h-[15px] border-b-2 border-l-2 border-dashed border-indigo-500 translate-x-1/2 rounded-bl self-start relative z-0">
+                                    </div>
+                                </div>
+                                <div class="flex-1">
+                                    <div
+                                        class="w-1/2 h-[15px] border-b-2 border-r-2 border-dashed border-indigo-500 -translate-x-1/2 rounded-br self-end relative z-0">
+                                    </div>
+                                </div>
+                                <div class="absolute bottom-[-5px] left-[50%] -translate-x-1/2 z-10">
+                                    <div class="arrow-down block !border-t-indigo-500 !scale-[0.6]"></div>
+                                </div>
+                            </div>
+
+                            <div
+                                class="glass-panel shape-process border-indigo-400 !w-[270px] bg-indigo-900/30 mt-[-6px]">
+                                <div class="font-extrabold text-[#a5b4fc]">17. Save Job</div>
+                            </div>
+
+                            <div class="flex-grow min-h-[40px]"></div>
+                        </div>
+                    </div>
+
+                    <!-- ============================================== -->
+                    <!-- C. ELIGIBILITY FILTERING                       -->
+                    <!-- ============================================== -->
+                    <div
+                        class="w-[320px] flex flex-col items-center bg-[#0f172a]/80 backdrop-blur-md border border-slate-700/80 rounded-2xl relative shadow-2xl">
+                        <div class="v-line !h-[40px] !bg-emerald-500/70 border-dashed mt-0 absolute top-[-40px]"></div>
+                        <div class="arrow-down block !border-t-emerald-500/70 absolute top-[0px]"></div>
+
+                        <div
+                            class="bg-emerald-600/20 text-emerald-300 font-extrabold w-full py-4 text-center border-b border-emerald-500/30 rounded-t-2xl tracking-widest text-sm shadow-[0_4px_20px_rgba(16,185,129,0.1)]">
+                            MODULE C<br>FILTERING ENGINE</div>
+
+                        <div class="p-4 flex flex-col items-center w-full grow">
+                            <div class="glass-panel shape-process border-emerald-400 !w-[270px]">18. Run System Engine
+                            </div>
+                            <div class="v-line !h-[20px] !bg-emerald-500"></div>
+                            <div class="arrow-down block !border-t-emerald-500"></div>
+
+                            <div
+                                class="glass-panel shape-process border-rose-500 !w-[270px] bg-rose-900/10 shadow-[0_0_15px_rgba(244,63,94,0.15)] pb-5">
+                                <div class="font-extrabold text-white text-sm">19. Check Conditions</div>
+                                <div
+                                    class="text-[10px] text-slate-300 mt-2 text-left bg-black/40 p-2 rounded border border-rose-500/30">
+                                    ✔ CGPA >= Required<br>
+                                    ✔ Branch Match<br>
+                                    ✔ Skills Match<br>
+                                    <span class="text-rose-400 font-bold tracking-wider uppercase mt-1 inline-block">❗
+                                        Category Match </span>
+                                </div>
+                            </div>
+                            <div class="v-line !h-[20px] !bg-emerald-500"></div>
+                            <div class="arrow-down block !border-t-emerald-500"></div>
+
+                            <div class="shape-decision !w-[100px] !h-[100px] border-emerald-500 mb-[22px]">
+                                <div class="decision-text leading-snug">20. Is Eligible?</div>
+                            </div>
+
+                            <div class="flex gap-4 w-[260px] justify-center mt-0">
+                                <div class="flex-1 flex flex-col items-center">
+                                    <div
+                                        class="w-[50%] h-[15px] border-t-2 border-l-2 border-dashed border-emerald-500 translate-x-1/2 rounded-tl mb-2 pointer-events-none self-start relative">
+                                        <div class="absolute bottom-[-5px] left-[-4px] z-10">
+                                            <div class="arrow-down block !border-t-emerald-500 !scale-[0.6]"></div>
+                                        </div>
+                                    </div>
+                                    <span
+                                        class="text-[9px] font-bold text-rose-300 bg-rose-900 px-2.5 rounded shadow mb-1">NO</span>
+                                    <div
+                                        class="glass-panel text-[11px] p-2 border-rose-500/50 w-full bg-rose-900/10 h-[40px] flex items-center justify-center text-rose-300 font-bold">
+                                        Exclude</div>
+                                </div>
+                                <div class="flex-1 flex flex-col items-center">
+                                    <div
+                                        class="w-[50%] h-[15px] border-t-2 border-r-2 border-dashed border-emerald-500 -translate-x-1/2 rounded-tr mb-2 pointer-events-none self-end relative">
+                                        <div class="absolute bottom-[-5px] right-[-4px] z-10">
+                                            <div class="arrow-down block !border-t-emerald-500 !scale-[0.6]"></div>
+                                        </div>
+                                    </div>
+                                    <span
+                                        class="text-[9px] font-bold text-emerald-300 bg-emerald-900 px-2 rounded shadow mb-1">YES</span>
+                                    <div
+                                        class="glass-panel text-[11px] p-2 border-emerald-500/50 w-full bg-emerald-900/20 h-[40px] flex items-center justify-center font-bold">
+                                        Add to List</div>
+                                </div>
+                            </div>
+
+                            <div
+                                class="flex gap-4 w-[260px] justify-center mt-0 text-center opacity-0 pointer-events-none">
+                                <div class="flex-1">
+                                    <div
+                                        class="w-1/2 h-[15px] border-b-2 border-l-2 border-dashed translate-x-1/2 rounded-bl self-start">
+                                    </div>
+                                </div>
+                                <div class="flex-1">
+                                    <div
+                                        class="w-1/2 h-[15px] border-b-2 border-r-2 border-dashed -translate-x-1/2 rounded-br self-end">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="glass-panel shape-process border-emerald-400 !w-[270px] mt-[-10px]">
+                                <div class="font-extrabold text-[#6ee7b7]">21. Generate Eligible List</div>
+                            </div>
+                            <div class="v-line !h-[20px] !bg-emerald-500"></div>
+                            <div class="arrow-down block !border-t-emerald-500"></div>
+
+                            <div class="glass-panel shape-process border-emerald-400 !w-[270px] bg-emerald-900/30">
+                                <div class="font-extrabold text-[#34d399]">22. Auto-Assign Job to List</div>
+                            </div>
+
+                            <div class="flex-grow min-h-[40px]"></div>
+                        </div>
+                    </div>
+
+                    <!-- ============================================== -->
+                    <!-- D. APPLICATION FLOW                            -->
+                    <!-- ============================================== -->
+                    <div
+                        class="w-[320px] flex flex-col items-center bg-[#0f172a]/80 backdrop-blur-md border border-slate-700/80 rounded-2xl relative shadow-2xl">
+                        <div class="v-line !h-[40px] !bg-cyan-500/70 border-dashed mt-0 absolute top-[-40px]"></div>
+                        <div class="arrow-down block !border-t-cyan-500/70 absolute top-[0px]"></div>
+
+                        <div
+                            class="bg-cyan-600/20 text-cyan-300 font-extrabold w-full py-4 text-center border-b border-cyan-500/30 rounded-t-2xl tracking-widest text-sm shadow-[0_4px_20px_rgba(6,182,212,0.1)]">
+                            MODULE D<br>APPLICATION FLOW</div>
+
+                        <div class="p-4 flex flex-col items-center w-full grow">
+                            <div class="glass-panel shape-process border-cyan-400 !w-[270px]">23. Notify Eligible
+                                Students</div>
+                            <div class="v-line !h-[25px] !bg-cyan-500"></div>
+                            <div class="arrow-down block !border-t-cyan-500"></div>
+
+                            <div class="glass-panel shape-process border-cyan-400 !w-[270px]">24. Student Applies</div>
+                            <div class="v-line !h-[25px] !bg-cyan-500"></div>
+                            <div class="arrow-down block !border-t-cyan-500"></div>
+
+                            <div
+                                class="shape-decision !w-[110px] !h-[110px] border-cyan-500 bg-[#060913] z-20 mb-[26px]">
+                                <div class="decision-text leading-snug">25. Is Application Valid?</div>
+                            </div>
+                            <div
+                                class="bg-rose-900/40 border border-rose-500 px-3 py-1.5 rounded text-rose-300 font-bold text-[9px] uppercase tracking-wider mb-2 mt-[-10px] z-30 shadow-[0_4px_10px_rgba(244,63,94,0.4)] relative">
+                                Double-Check Category </div>
+
+                            <div class="flex gap-4 w-[260px] justify-center mt-0">
+                                <div class="flex-1 flex flex-col items-center">
+                                    <div
+                                        class="w-[50%] h-[15px] border-t-2 border-l-2 border-dashed border-cyan-500 translate-x-1/2 rounded-tl mb-2 pointer-events-none self-start mt-[-20px] opacity-100 relative top-[-10px] z-10">
+                                        <div class="absolute bottom-[-5px] left-[-4px]">
+                                            <div class="arrow-down block !border-t-cyan-500/50 !scale-[0.6]"></div>
+                                        </div>
+                                    </div>
+                                    <span
+                                        class="text-[9px] font-bold text-rose-300 bg-rose-900 px-2.5 rounded shadow mb-1">NO</span>
+                                    <div
+                                        class="glass-panel text-[11px] p-2 border-rose-500/50 w-[80%] bg-rose-900/10 h-[40px] flex items-center justify-center text-rose-300 font-bold shadow-md">
+                                        Reject</div>
+                                </div>
+                                <div class="flex-1 flex flex-col items-center">
+                                    <div
+                                        class="w-[50%] h-[15px] border-t-2 border-r-2 border-dashed border-cyan-500 -translate-x-1/2 rounded-tr mb-2 pointer-events-none self-end mt-[-20px] opacity-100 relative top-[-10px] z-10">
+                                        <div class="absolute bottom-[-5px] right-[-4px]">
+                                            <div class="arrow-down block !border-t-cyan-500/50 !scale-[0.6]"></div>
+                                        </div>
+                                    </div>
+                                    <span
+                                        class="text-[9px] font-bold text-cyan-300 bg-cyan-900 px-2 rounded shadow mb-1">YES</span>
+                                    <div
+                                        class="glass-panel text-[11px] p-2 border-emerald-500/50 w-[80%] bg-emerald-900/20 h-[40px] flex items-center justify-center font-bold">
+                                        Accept</div>
+                                </div>
+                            </div>
+
+                            <div
+                                class="flex gap-4 w-[260px] justify-center mt-0 text-center relative pointer-events-none">
+                                <div class="flex-1 border-transparent h-[15px]"></div>
+                                <div class="flex-1">
+                                    <div
+                                        class="w-1/2 h-[15px] border-b-2 border-l-2 border-dashed border-cyan-500 -translate-x-1/2 rounded-bl self-end relative opacity-50">
+                                    </div>
+                                </div>
+                                <div class="absolute bottom-[-5px] left-[50%] -translate-x-1/2 z-10">
+                                    <div class="arrow-down block !border-t-cyan-500/50 !scale-[0.6]"></div>
+                                </div>
+                            </div>
+
+                            <div class="glass-panel shape-process border-cyan-400 !w-[270px] mt-[-10px]">26. Store
+                                Application Data</div>
+                            <div class="v-line !h-[25px] !bg-cyan-500"></div>
+                            <div class="arrow-down block !border-t-cyan-500"></div>
+
+                            <div class="glass-panel shape-process border-cyan-400 !w-[270px] bg-cyan-900/30">
+                                <div class="font-extrabold text-[#67e8f9]">27. Admin Views Apps</div>
+                            </div>
+
+                            <div class="flex-grow min-h-[40px]"></div>
+                        </div>
+                    </div>
+
+                    <!-- ============================================== -->
+                    <!-- E. HIRING PIPELINE FLOW                        -->
+                    <!-- ============================================== -->
+                    <div
+                        class="w-[320px] flex flex-col items-center bg-[#0f172a]/80 backdrop-blur-md border border-slate-700/80 rounded-2xl relative shadow-2xl">
+                        <div class="v-line !h-[40px] !bg-purple-500/70 border-dashed mt-0 absolute top-[-40px]"></div>
+                        <div class="arrow-down block !border-t-purple-500/70 absolute top-[0px]"></div>
+
+                        <div
+                            class="bg-purple-600/20 text-purple-300 font-extrabold w-full py-4 text-center border-b border-purple-500/30 rounded-t-2xl tracking-widest text-sm shadow-[0_4px_20px_rgba(168,85,247,0.1)]">
+                            MODULE E<br>HIRING PIPELINE</div>
+
+                        <div class="p-4 flex flex-col items-center w-full grow">
+                            <div class="glass-panel shape-process border-purple-400 !w-[270px]">28. Recruiter Reviews
+                            </div>
+                            <div class="v-line !h-[18px] !bg-purple-500"></div>
+                            <div class="arrow-down block !border-t-purple-500"></div>
+
+                            <div class="glass-panel shape-process border-purple-400 !w-[270px]">29. Shortlist Candidates
+                            </div>
+                            <div class="v-line !h-[18px] !bg-purple-500"></div>
+                            <div class="arrow-down block !border-t-purple-500"></div>
+
+                            <!-- HIRING ROUND LOOP -->
+                            <div class="relative flex flex-col items-center w-[280px]">
+
+                                <!-- Loop Back Track (Left Side) -->
+                                <div
+                                    class="absolute w-[30px] border-l-2 border-t-2 border-b-2 border-dashed border-purple-400 rounded-l-2xl top-[25px] bottom-[65px] left-[-20px] z-0">
+                                </div>
+                                <div class="absolute top-[20px] left-[0px] rotate-[90deg] scale-75 z-10">
+                                    <div class="arrow-down block !border-t-purple-400"></div>
+                                </div>
+                                <div class="absolute left-[-42px] top-[50%] -translate-y-1/2 rotate-180"
+                                    style="writing-mode: vertical-rl;"><span
+                                        class="text-[9px] bg-[#060913] text-purple-300 font-extrabold px-1 tracking-widest border border-purple-500/50 rounded shadow z-20 relative">NEXT
+                                        ROUND</span></div>
+
+                                <div
+                                    class="glass-panel shape-process border-purple-400 !w-[220px] bg-purple-900/20 py-4 z-10 mb-4 ml-[24px] shadow-[0_0_15px_rgba(168,85,247,0.2)]">
+                                    <div class="font-extrabold text-purple-300 text-sm">30. Conduct Round Seq.</div>
+                                    <div
+                                        class="text-[9px] text-[#fbcfe8] mt-2 font-bold tracking-wider bg-black/40 py-1 border border-purple-500/30 rounded inline-block px-2 shadow">
+                                        APTITUDE → TECH → HR</div>
+                                    <div class="text-[8px] text-slate-400 mt-1 uppercase tracking-widest">+ Update
+                                        Results</div>
+                                </div>
+
+                                <div class="v-line !h-[15px] !bg-purple-500 mt-[-16px] ml-[24px]"></div>
+                                <div class="arrow-down block !border-t-purple-500 ml-[24px]"></div>
+
+                                <div class="shape-decision !w-[100px] !h-[100px] border-purple-500 z-10 ml-[24px]">
+                                    <div class="decision-text">31. Pass Round?</div>
+                                </div>
+
+                                <!-- Fail Reject right hand out -->
+                                <div
+                                    class="absolute right-[0px] top-[148px] w-[40px] border-t-2 border-dashed border-rose-500 z-0">
+                                    <div class="absolute right-[-4px] top-[143px] -rotate-90">
+                                        <div class="arrow-down block !border-t-rose-500 !scale-[0.6]"></div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="absolute right-[-30px] top-[141px] glass-panel !px-2 !py-0.5 border-rose-500 bg-rose-900/30 text-rose-300 font-bold text-[9px] shadow-lg z-20">
+                                    Reject</div>
+                            </div>
+
+                            <!-- Proceed down to Final -->
+                            <div
+                                class="text-[9px] font-bold text-emerald-400 bg-[#060913] px-2 py-0.5 rounded border border-emerald-500/30 shadow ml-[24px]">
+                                ALL PASSED</div>
+                            <div class="v-line !h-[20px] !bg-emerald-500 ml-[24px] mt-[-6px]"></div>
+                            <div class="arrow-down block !border-t-emerald-500 ml-[24px]"></div>
+
+                            <div class="glass-panel shape-process border-emerald-400 !w-[270px]">32. Generate Final Info
+                                List</div>
+                            <div class="v-line !h-[20px] !bg-emerald-500"></div>
+                            <div class="arrow-down block !border-t-emerald-500"></div>
+
+                            <div class="glass-panel shape-process border-emerald-400 !w-[270px] bg-emerald-900/30">
+                                <div class="font-extrabold text-emerald-400">33. Update Final Status</div>
+                                <div class="text-[10px] font-bold text-slate-100 tracking-wider mt-1 uppercase">Selected
+                                    / Rejected</div>
+                            </div>
+
+                            <div class="flex-grow min-h-[40px]"></div>
+                        </div>
+                    </div>
+
+                    <!-- ============================================== -->
+                    <!-- F. COMMUNICATION FLOW                          -->
+                    <!-- ============================================== -->
+                    <div
+                        class="w-[320px] flex flex-col items-center bg-[#0f172a]/80 backdrop-blur-md border border-slate-700/80 rounded-2xl relative shadow-2xl">
+                        <div class="v-line !h-[40px] !bg-orange-500/70 border-dashed mt-0 absolute top-[-40px]"></div>
+                        <div class="arrow-down block !border-t-orange-500/70 absolute top-[0px]"></div>
+
+                        <div
+                            class="bg-orange-600/20 text-orange-300 font-extrabold w-full py-4 text-center border-b border-orange-500/30 rounded-t-2xl tracking-widest text-sm shadow-[0_4px_20px_rgba(249,115,22,0.1)]">
+                            MODULE F<br>COMMUNICATION</div>
+
+                        <div class="p-4 flex flex-col items-center w-full grow">
+                            <div class="glass-panel shape-process border-orange-400 !w-[270px] py-4">
+                                <div class="font-extrabold text-sm mb-2 text-white">34. Send Notifications</div>
+                                <div
+                                    class="text-[11px] text-orange-200 bg-orange-900/30 p-2 rounded text-left leading-relaxed border border-orange-500/30 shadow-inner">
+                                    📩 App Status<br>
+                                    📩 Shortlist Updates<br>
+                                    📩 Round Results<br>
+                                    📩 Final Selection
+                                </div>
+                            </div>
+                            <div class="v-line !h-[30px] !bg-orange-500"></div>
+                            <div class="arrow-down block !border-t-orange-500"></div>
+
+                            <div class="glass-panel shape-process border-orange-400 !w-[270px] bg-orange-900/30">
+                                <div class="font-extrabold text-[#fdba74]">35. Email Recruiters</div>
+                            </div>
+
+                            <div class="flex-grow min-h-[40px]"></div>
+                        </div>
+                    </div>
+
+                    <!-- ============================================== -->
+                    <!-- G. ANALYTICS FLOW                              -->
+                    <!-- ============================================== -->
+                    <div
+                        class="w-[320px] flex flex-col items-center bg-[#0f172a]/80 backdrop-blur-md border border-slate-700/80 rounded-2xl relative shadow-2xl">
+                        <div class="v-line !h-[40px] !bg-pink-500/70 border-dashed mt-0 absolute top-[-40px]"></div>
+                        <div class="arrow-down block !border-t-pink-500/70 absolute top-[0px]"></div>
+
+                        <div
+                            class="bg-pink-600/20 text-pink-300 font-extrabold w-full py-4 text-center border-b border-pink-500/30 rounded-t-2xl tracking-widest text-sm shadow-[0_4px_20px_rgba(236,72,153,0.1)]">
+                            MODULE G<br>ANALYTICS</div>
+
+                        <div class="p-4 flex flex-col items-center w-full grow">
+                            <div class="glass-panel shape-process border-pink-400 !w-[270px] py-4">
+                                <div class="font-extrabold text-sm mb-2 text-white">36. Update Dashboard</div>
+                                <div
+                                    class="text-[11px] text-pink-200 bg-pink-900/30 p-2 rounded text-center leading-relaxed border border-pink-500/30 shadow-inner">
+                                    Total Students • Total Jobs<br>Placement & Selection Rates
+                                </div>
+                            </div>
+                            <div class="v-line !h-[30px] !bg-pink-500"></div>
+                            <div class="arrow-down block !border-t-pink-500"></div>
+
+                            <div class="glass-panel shape-process border-pink-400 !w-[270px] bg-pink-900/30 py-4">
+                                <div class="font-extrabold text-[#f9a8d4] mb-2">37. Generate Insights</div>
+                                <div class="flex flex-col gap-1 w-[80%] mx-auto mt-2">
+                                    <div class="bg-black/50 text-[9px] text-white py-1 rounded shadow">Branch-wise Maps
+                                    </div>
+                                    <div class="bg-black/50 text-[9px] text-white py-1 rounded shadow">Company Tracking
+                                    </div>
+                                    <div class="bg-black/50 text-[9px] text-white py-1 rounded shadow">Trend History
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex-grow min-h-[40px]"></div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- MASTER MERGE TO END -->
+                <div class="flex flex-col items-center relative w-full translate-y-[-20px] pointer-events-none">
+                    <!-- The 7 downward streams push into this dashed bottom line -->
+                    <div class="w-[2160px] border-b-[3px] border-dashed border-slate-500 h-[30px] z-0"></div>
+                    <div class="v-line !h-[50px] !bg-slate-500 border-dashed border-l-[3px] !w-0"></div>
+
+                    <!-- END NODE -->
+                    <div
+                        class="shape-oval !bg-slate-800 border-slate-500 shadow-[0_0_80px_rgba(255,255,255,0.05)] !text-4xl !px-32 !py-6 tracking-widest text-[#94a3b8] relative z-20 pointer-events-auto">
+                        38. END</div>
+                </div>
+
             </div>
 
         </div>
-
-
-        <!-- ============================================== -->
-        <!--        ADMIN MULTI-PIPELINE DIAGRAM            -->
-        <!-- ============================================== -->
-        <div id="admin-diagram" class="flex flex-col items-center w-[2800px] absolute pt-[80px] pb-32 z-10 transition-opacity">
-            
-            <!-- MASTER START -->
-            <div class="shape-oval border-teal-400 shadow-[0_0_20px_rgba(20,184,166,0.3)] !px-12 !py-3">1. Start</div>
-            <div class="v-line !h-[30px] !bg-teal-500"></div><div class="arrow-down block !border-t-teal-500"></div>
-
-            <div class="glass-panel shape-process border-teal-500/50 hover:bg-teal-900/20 !p-3 shadow-lg">
-                <div class="text-[13px] font-bold text-white">2. Admin Login</div>
-            </div>
-            <div class="v-line !h-[30px] !bg-teal-500"></div><div class="arrow-down block !border-t-teal-500"></div>
-
-            <div class="glass-panel shape-process border-teal-500/50 hover:bg-teal-900/20 !p-3 shadow-lg">
-                <div class="text-[13px] font-bold text-white">3. Load Admin Dashboard</div>
-            </div>
-            <div class="v-line !h-[50px] !bg-teal-500"></div><div class="arrow-down block !border-t-teal-500"></div>
-
-            <!-- DASHBOARD HUB -->
-            <div class="dashboard-container !border-amber-400/80 !bg-amber-900/20 !w-[1600px] shadow-[0_0_80px_rgba(245,158,11,0.15)] !p-6 !py-10 mb-0 relative z-30 flex justify-center items-center backdrop-blur-md">
-               <div class="absolute w-[80%] h-1/2 bg-amber-500/10 blur-[100px] pointer-events-none rounded-full"></div>
-               <div class="font-extrabold text-amber-300 text-2xl tracking-widest uppercase drop-shadow-xl z-20 flex items-center gap-3 relative">
-                   <svg class="w-8 h-8 text-amber-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-                   4. Admin Dashboard (Central Control Hub)
-               </div>
-            </div>
-
-            <!-- Connection from Dashboard down to Artery -->
-            <div class="v-line !h-[30px] !bg-amber-500 border-dashed z-20"></div>
-
-            <!-- HORIZONTAL ARTERY connecting 7 pillars -->
-            <!-- 7 pillars * 320px width = 2240px. 6 gaps * 40px = 240px. Total = 2480px. -->
-            <!-- Artery spans from center of first pillar (160px from left) to center of last (160px from right) -> 2480 - 320 = 2160px -->
-            <div class="w-[2160px] border-t-[3px] border-amber-500/50 border-dashed z-10 relative">
-                 <div class="absolute top-[-5px] left-[-5px] w-2 h-2 rounded-full bg-amber-500"></div>
-                 <div class="absolute top-[-5px] right-[-5px] w-2 h-2 rounded-full bg-amber-500"></div>
-            </div>
-
-            <!-- 7 MODULE PILLARS -->
-            <div class="flex gap-[40px] justify-center w-[2480px] z-20 relative">
-
-                <!-- ============================================== -->
-                <!-- A. STUDENT MANAGEMENT                          -->
-                <!-- ============================================== -->
-                <div class="w-[320px] flex flex-col items-center bg-[#0f172a]/80 backdrop-blur-md border border-slate-700/80 rounded-2xl relative shadow-2xl">
-                    <div class="v-line !h-[40px] !bg-blue-500/70 border-dashed mt-0 absolute top-[-40px]"></div><div class="arrow-down block !border-t-blue-500/70 absolute top-[0px]"></div>
-                    
-                    <div class="bg-blue-600/20 text-blue-300 font-extrabold w-full py-4 text-center border-b border-blue-500/30 rounded-t-2xl tracking-widest text-sm shadow-[0_4px_20px_rgba(37,99,235,0.1)]">MODULE A<br>STUDENT MGMT</div>
-                    
-                    <div class="p-4 flex flex-col items-center w-full grow">
-                        <div class="glass-panel shape-process border-blue-400 !w-[270px]">5. View / Upload Students</div>
-                        <div class="v-line !h-[15px] !bg-blue-500"></div><div class="arrow-down block !border-t-blue-500"></div>
-
-                        <div class="shape-decision !w-[110px] !h-[110px] border-blue-500 mb-[22px]">
-                            <div class="decision-text">6. Bulk or<br>Manual Engine?</div>
-                        </div>
-
-                        <!-- Manual vs Bulk Branch -->
-                        <div class="flex gap-3 w-full justify-center text-center mt-0">
-                             <div class="flex-1 flex flex-col items-center">
-                                 <div class="w-1/2 h-[15px] border-t-2 border-l-2 border-dashed border-blue-500 translate-x-1/2 rounded-tl mb-2 z-0"></div>
-                                 <span class="text-[9px] font-bold text-slate-400 bg-slate-800 px-1 rounded shadow mb-1">BULK CSV</span>
-                                 <div class="glass-panel text-[11px] p-2 border-blue-500/50 w-[120px] mb-2 font-bold bg-blue-900/10">Upload CSV</div>
-                                 <div class="glass-panel text-[11px] p-2 border-blue-500/50 w-[120px] mb-2 font-bold bg-blue-900/10">Validate Data</div>
-                                 <div class="glass-panel text-[11px] p-2 border-blue-500/50 w-[120px] font-bold bg-blue-900/10">Store DB</div>
-                             </div>
-                             <div class="flex-1 flex flex-col items-center">
-                                 <div class="w-1/2 h-[15px] border-t-2 border-r-2 border-dashed border-blue-500 -translate-x-1/2 rounded-tr mb-2 z-0"></div>
-                                 <span class="text-[9px] font-bold text-slate-400 bg-slate-800 px-1 rounded shadow mb-1">MANUAL</span>
-                                 <div class="glass-panel text-[11px] p-2 border-blue-500/50 w-[120px] mb-2 font-bold bg-blue-900/10">Enter Details</div>
-                                 <div class="glass-panel text-[11px] p-2 border-blue-500/50 w-[120px] mb-2 font-bold bg-blue-900/10 opacity-0 pointer-events-none">Spacer</div>
-                                 <div class="glass-panel text-[11px] p-2 border-blue-500/50 w-[120px] font-bold bg-blue-900/10">Save Form</div>
-                             </div>
-                        </div>
-
-                        <!-- Merge branch -->
-                        <div class="flex gap-3 w-[252px] justify-center text-center mt-2">
-                            <div class="flex-1"><div class="w-1/2 h-[15px] border-b-2 border-l-2 border-dashed border-blue-500 translate-x-1/2 rounded-bl self-start relative drop-shadow z-0"><div class="absolute bottom-[-5px] right-[-10px] rotate-[-90deg]"><div class="arrow-down block !border-t-blue-500 !scale-75"></div></div></div></div>
-                            <div class="flex-1"><div class="w-1/2 h-[15px] border-b-2 border-r-2 border-dashed border-blue-500 -translate-x-1/2 rounded-br self-end relative drop-shadow"></div></div>
-                        </div>
-
-                        <div class="glass-panel shape-process border-blue-400 !w-[270px] mt-[-6px]">
-                            <div class="font-bold text-sm">7. Assign Attributes</div>
-                            <div class="text-[9px] text-slate-300 mt-1 uppercase">CGPA • Branch • Skills • Category Tag</div>
-                        </div>
-                        <div class="v-line !h-[15px] !bg-blue-500"></div><div class="arrow-down block !border-t-blue-500"></div>
-
-                        <div class="glass-panel shape-process border-blue-400 !w-[270px]">
-                            <div class="font-bold text-sm">8. Apply Restrictions</div>
-                            <div class="text-[9px] text-slate-300 mt-1 uppercase">Priority • Blacklist • Special</div>
-                        </div>
-                        <div class="v-line !h-[15px] !bg-blue-500"></div><div class="arrow-down block !border-t-blue-500"></div>
-
-                        <div class="glass-panel shape-process border-blue-400 !w-[270px] bg-blue-900/30">
-                            <div class="font-extrabold text-[#93c5fd]">9. Store / Update Database</div>
-                        </div>
-                        
-                        <!-- Pushes the bottom vertical line down cleanly -->
-                        <div class="flex-grow min-h-[40px]"></div>
-                    </div>
-                </div>
-
-                <!-- ============================================== -->
-                <!-- B. JOB MANAGEMENT                              -->
-                <!-- ============================================== -->
-                <div class="w-[320px] flex flex-col items-center bg-[#0f172a]/80 backdrop-blur-md border border-slate-700/80 rounded-2xl relative shadow-2xl">
-                    <div class="v-line !h-[40px] !bg-indigo-500/70 border-dashed mt-0 absolute top-[-40px]"></div><div class="arrow-down block !border-t-indigo-500/70 absolute top-[0px]"></div>
-                    
-                    <div class="bg-indigo-600/20 text-indigo-300 font-extrabold w-full py-4 text-center border-b border-indigo-500/30 rounded-t-2xl tracking-widest text-sm shadow-[0_4px_20px_rgba(99,102,241,0.1)]">MODULE B<br>JOB MGMT</div>
-                    
-                    <div class="p-4 flex flex-col items-center w-full grow">
-                        <div class="glass-panel shape-process border-indigo-400 !w-[270px]">10. Create / Add Job</div>
-                        <div class="v-line !h-[15px] !bg-indigo-500"></div><div class="arrow-down block !border-t-indigo-500"></div>
-
-                        <div class="glass-panel shape-process border-indigo-400 !w-[270px] py-3">
-                            <div class="font-bold text-sm">11. Enter Job Details</div>
-                            <div class="text-[9px] text-slate-300 mt-1 uppercase">Company • Role • Package • Type</div>
-                        </div>
-                        <div class="v-line !h-[15px] !bg-indigo-500"></div><div class="arrow-down block !border-t-indigo-500"></div>
-
-                        <div class="glass-panel shape-process border-indigo-400 !w-[270px]">
-                            <div class="font-bold text-sm">12. Define Eligibility Criteria</div>
-                            <div class="text-[9px] text-slate-300 mt-1 uppercase">CGPA Cutoff • Branch Allowed • Skills</div>
-                        </div>
-                        <div class="v-line !h-[15px] !bg-indigo-500"></div><div class="arrow-down block !border-t-indigo-500"></div>
-
-                        <div class="glass-panel shape-process border-rose-500 !w-[270px] bg-rose-900/10 shadow-[0_0_15px_rgba(244,63,94,0.15)]">
-                            <div class="font-extrabold text-rose-300 text-sm">13. Define Allowed Categories</div>
-                            <div class="text-[9px] text-[#fca5a5] mt-1 bg-rose-900/50 p-1 rounded font-bold border border-rose-500/30 uppercase tracking-widest">e.g. ONLY ABC CATEGORY</div>
-                        </div>
-                        <div class="v-line !h-[15px] !bg-indigo-500"></div><div class="arrow-down block !border-t-indigo-500"></div>
-
-                        <div class="shape-decision !w-[100px] !h-[100px] border-indigo-500 mb-[22px]">
-                            <div class="decision-text">14. Job Source?</div>
-                        </div>
-
-                        <div class="flex gap-4 w-[260px] justify-center mt-0">
-                             <div class="flex-1 flex flex-col items-center">
-                                 <div class="w-[50%] h-[15px] border-t-2 border-l-2 border-dashed border-indigo-500 translate-x-1/2 rounded-tl mb-2 pointer-events-none self-start"></div>
-                                 <span class="text-[9px] font-bold text-slate-400 bg-slate-800 px-1 rounded shadow mb-1">EXTERNAL</span>
-                                 <div class="glass-panel text-[11px] p-2 border-indigo-500/50 w-full mb-2 bg-indigo-900/10 h-full flex flex-col justify-center text-rose-300">15. Mark Ext<br><span class="text-[8px] opacity-80">(No internal tracking)</span></div>
-                             </div>
-                             <div class="flex-1 flex flex-col items-center">
-                                 <div class="w-[50%] h-[15px] border-t-2 border-r-2 border-dashed border-indigo-500 -translate-x-1/2 rounded-tr mb-2 pointer-events-none self-end"></div>
-                                 <span class="text-[9px] font-bold text-slate-400 bg-slate-800 px-1 rounded shadow mb-1">INTERNAL</span>
-                                 <div class="glass-panel text-[11px] p-2 border-indigo-500/50 w-full mb-2 bg-indigo-900/10 h-full flex flex-col justify-center">16. Full Pipeline Track</div>
-                             </div>
-                        </div>
-
-                        <div class="flex gap-4 w-[260px] justify-center mt-0 text-center">
-                            <div class="flex-1"><div class="w-1/2 h-[15px] border-b-2 border-l-2 border-dashed border-indigo-500 translate-x-1/2 rounded-bl self-start relative z-0"><div class="absolute bottom-[-5px] right-[-10px] rotate-[-90deg]"><div class="arrow-down block !border-t-indigo-500 !scale-75"></div></div></div></div>
-                            <div class="flex-1"><div class="w-1/2 h-[15px] border-b-2 border-r-2 border-dashed border-indigo-500 -translate-x-1/2 rounded-br self-end relative z-0"></div></div>
-                        </div>
-
-                        <div class="glass-panel shape-process border-indigo-400 !w-[270px] bg-indigo-900/30 mt-[-6px]">
-                            <div class="font-extrabold text-[#a5b4fc]">17. Save Job</div>
-                        </div>
-
-                        <div class="flex-grow min-h-[40px]"></div>
-                    </div>
-                </div>
-
-                <!-- ============================================== -->
-                <!-- C. ELIGIBILITY FILTERING                       -->
-                <!-- ============================================== -->
-                <div class="w-[320px] flex flex-col items-center bg-[#0f172a]/80 backdrop-blur-md border border-slate-700/80 rounded-2xl relative shadow-2xl">
-                    <div class="v-line !h-[40px] !bg-emerald-500/70 border-dashed mt-0 absolute top-[-40px]"></div><div class="arrow-down block !border-t-emerald-500/70 absolute top-[0px]"></div>
-                    
-                    <div class="bg-emerald-600/20 text-emerald-300 font-extrabold w-full py-4 text-center border-b border-emerald-500/30 rounded-t-2xl tracking-widest text-sm shadow-[0_4px_20px_rgba(16,185,129,0.1)]">MODULE C<br>FILTERING ENGINE</div>
-                    
-                    <div class="p-4 flex flex-col items-center w-full grow">
-                        <div class="glass-panel shape-process border-emerald-400 !w-[270px]">18. Run System Engine</div>
-                        <div class="v-line !h-[20px] !bg-emerald-500"></div><div class="arrow-down block !border-t-emerald-500"></div>
-
-                        <div class="glass-panel shape-process border-rose-500 !w-[270px] bg-rose-900/10 shadow-[0_0_15px_rgba(244,63,94,0.15)] pb-5">
-                            <div class="font-extrabold text-white text-sm">19. Check Strict Conditions</div>
-                            <div class="text-[10px] text-slate-300 mt-2 text-left bg-black/40 p-2 rounded border border-rose-500/30">
-                                ✔ CGPA >= Required<br>
-                                ✔ Branch Match<br>
-                                ✔ Skills Match<br>
-                                <span class="text-rose-400 font-bold tracking-wider uppercase mt-1 inline-block">❗ Category Match (STRICT)</span>
-                            </div>
-                        </div>
-                        <div class="v-line !h-[20px] !bg-emerald-500"></div><div class="arrow-down block !border-t-emerald-500"></div>
-
-                        <div class="shape-decision !w-[100px] !h-[100px] border-emerald-500 mb-[22px]">
-                            <div class="decision-text leading-snug">20. Is Eligible?</div>
-                        </div>
-
-                        <div class="flex gap-4 w-[260px] justify-center mt-0">
-                             <div class="flex-1 flex flex-col items-center">
-                                 <div class="w-[50%] h-[15px] border-t-2 border-l-2 border-dashed border-emerald-500 translate-x-1/2 rounded-tl mb-2 pointer-events-none self-start"></div>
-                                 <span class="text-[9px] font-bold text-rose-300 bg-rose-900 px-2.5 rounded shadow mb-1">NO</span>
-                                 <div class="glass-panel text-[11px] p-2 border-rose-500/50 w-full bg-rose-900/10 h-[40px] flex items-center justify-center text-rose-300 font-bold">Exclude</div>
-                             </div>
-                             <div class="flex-1 flex flex-col items-center">
-                                 <div class="w-[50%] h-[15px] border-t-2 border-r-2 border-dashed border-emerald-500 -translate-x-1/2 rounded-tr mb-2 pointer-events-none self-end"></div>
-                                 <span class="text-[9px] font-bold text-emerald-300 bg-emerald-900 px-2 rounded shadow mb-1">YES</span>
-                                 <div class="glass-panel text-[11px] p-2 border-emerald-500/50 w-full bg-emerald-900/20 h-[40px] flex items-center justify-center font-bold">Add to List</div>
-                             </div>
-                        </div>
-
-                        <div class="flex gap-4 w-[260px] justify-center mt-0 text-center opacity-0 pointer-events-none">
-                            <div class="flex-1"><div class="w-1/2 h-[15px] border-b-2 border-l-2 border-dashed translate-x-1/2 rounded-bl self-start"></div></div>
-                            <div class="flex-1"><div class="w-1/2 h-[15px] border-b-2 border-r-2 border-dashed -translate-x-1/2 rounded-br self-end"></div></div>
-                        </div>
-
-                        <div class="glass-panel shape-process border-emerald-400 !w-[270px] mt-[-10px]">
-                            <div class="font-extrabold text-[#6ee7b7]">21. Generate Eligible List</div>
-                        </div>
-                        <div class="v-line !h-[20px] !bg-emerald-500"></div><div class="arrow-down block !border-t-emerald-500"></div>
-
-                        <div class="glass-panel shape-process border-emerald-400 !w-[270px] bg-emerald-900/30">
-                            <div class="font-extrabold text-[#34d399]">22. Auto-Assign Job to List</div>
-                        </div>
-
-                        <div class="flex-grow min-h-[40px]"></div>
-                    </div>
-                </div>
-
-                <!-- ============================================== -->
-                <!-- D. APPLICATION FLOW                            -->
-                <!-- ============================================== -->
-                <div class="w-[320px] flex flex-col items-center bg-[#0f172a]/80 backdrop-blur-md border border-slate-700/80 rounded-2xl relative shadow-2xl">
-                    <div class="v-line !h-[40px] !bg-cyan-500/70 border-dashed mt-0 absolute top-[-40px]"></div><div class="arrow-down block !border-t-cyan-500/70 absolute top-[0px]"></div>
-                    
-                    <div class="bg-cyan-600/20 text-cyan-300 font-extrabold w-full py-4 text-center border-b border-cyan-500/30 rounded-t-2xl tracking-widest text-sm shadow-[0_4px_20px_rgba(6,182,212,0.1)]">MODULE D<br>APPLICATION FLOW</div>
-                    
-                    <div class="p-4 flex flex-col items-center w-full grow">
-                        <div class="glass-panel shape-process border-cyan-400 !w-[270px]">23. Notify Eligible Students</div>
-                        <div class="v-line !h-[25px] !bg-cyan-500"></div><div class="arrow-down block !border-t-cyan-500"></div>
-
-                        <div class="glass-panel shape-process border-cyan-400 !w-[270px]">24. Student Applies</div>
-                        <div class="v-line !h-[25px] !bg-cyan-500"></div><div class="arrow-down block !border-t-cyan-500"></div>
-
-                        <div class="shape-decision !w-[110px] !h-[110px] border-cyan-500 bg-[#060913] z-20 mb-[26px]">
-                            <div class="decision-text leading-snug">25. Is Application Valid?</div>
-                        </div>
-                        <div class="bg-rose-900/40 border border-rose-500 px-3 py-1.5 rounded text-rose-300 font-bold text-[9px] uppercase tracking-wider mb-2 mt-[-10px] z-30 shadow-[0_4px_10px_rgba(244,63,94,0.4)] relative">Double-Check Category STRICT</div>
-
-                        <div class="flex gap-4 w-[260px] justify-center mt-0">
-                             <div class="flex-1 flex flex-col items-center">
-                                 <div class="w-[50%] h-[15px] border-t-2 border-l-2 border-dashed border-cyan-500 translate-x-1/2 rounded-tl mb-2 pointer-events-none self-start mt-[-20px] z-0 opacity-50 relative top-[-10px]"></div>
-                                 <span class="text-[9px] font-bold text-rose-300 bg-rose-900 px-2.5 rounded shadow mb-1">NO</span>
-                                 <div class="glass-panel text-[11px] p-2 border-rose-500/50 w-[80%] bg-rose-900/10 h-[40px] flex items-center justify-center text-rose-300 font-bold shadow-md">Reject</div>
-                             </div>
-                             <div class="flex-1 flex flex-col items-center">
-                                 <div class="w-[50%] h-[15px] border-t-2 border-r-2 border-dashed border-cyan-500 -translate-x-1/2 rounded-tr mb-2 pointer-events-none self-end mt-[-20px] z-0 opacity-50 relative top-[-10px]"></div>
-                                 <span class="text-[9px] font-bold text-cyan-300 bg-cyan-900 px-2 rounded shadow mb-1">YES</span>
-                                 <div class="glass-panel text-[11px] p-2 border-emerald-500/50 w-[80%] bg-emerald-900/20 h-[40px] flex items-center justify-center font-bold">Accept</div>
-                             </div>
-                        </div>
-
-                        <div class="flex gap-4 w-[260px] justify-center mt-0 text-center">
-                            <div class="flex-1 border-transparent h-[15px] pointer-events-none"></div>
-                            <div class="flex-1"><div class="w-1/2 h-[15px] border-b-2 border-l-2 border-dashed border-cyan-500 -translate-x-1/2 rounded-bl self-end relative opacity-50"><div class="absolute bottom-[-5px] right-[-10px] rotate-[-90deg]"><div class="arrow-down block !border-t-cyan-500 !scale-75"></div></div></div></div>
-                        </div>
-                        
-                        <div class="glass-panel shape-process border-cyan-400 !w-[270px] mt-[-10px]">26. Store Application Data</div>
-                        <div class="v-line !h-[25px] !bg-cyan-500"></div><div class="arrow-down block !border-t-cyan-500"></div>
-
-                        <div class="glass-panel shape-process border-cyan-400 !w-[270px] bg-cyan-900/30">
-                            <div class="font-extrabold text-[#67e8f9]">27. Admin Views Apps</div>
-                        </div>
-
-                        <div class="flex-grow min-h-[40px]"></div>
-                    </div>
-                </div>
-
-                <!-- ============================================== -->
-                <!-- E. HIRING PIPELINE FLOW                        -->
-                <!-- ============================================== -->
-                <div class="w-[320px] flex flex-col items-center bg-[#0f172a]/80 backdrop-blur-md border border-slate-700/80 rounded-2xl relative shadow-2xl">
-                    <div class="v-line !h-[40px] !bg-purple-500/70 border-dashed mt-0 absolute top-[-40px]"></div><div class="arrow-down block !border-t-purple-500/70 absolute top-[0px]"></div>
-                    
-                    <div class="bg-purple-600/20 text-purple-300 font-extrabold w-full py-4 text-center border-b border-purple-500/30 rounded-t-2xl tracking-widest text-sm shadow-[0_4px_20px_rgba(168,85,247,0.1)]">MODULE E<br>HIRING PIPELINE</div>
-                    
-                    <div class="p-4 flex flex-col items-center w-full grow">
-                        <div class="glass-panel shape-process border-purple-400 !w-[270px]">28. Recruiter Reviews</div>
-                        <div class="v-line !h-[18px] !bg-purple-500"></div><div class="arrow-down block !border-t-purple-500"></div>
-
-                        <div class="glass-panel shape-process border-purple-400 !w-[270px]">29. Shortlist Candidates</div>
-                        <div class="v-line !h-[18px] !bg-purple-500"></div><div class="arrow-down block !border-t-purple-500"></div>
-
-                        <!-- HIRING ROUND LOOP -->
-                        <div class="relative flex flex-col items-center w-[280px]">
-                            
-                            <!-- Loop Back Track (Left Side) -->
-                            <div class="absolute w-[30px] border-l-2 border-t-2 border-b-2 border-dashed border-purple-400 rounded-l-2xl top-[25px] bottom-[65px] left-[-20px] z-0"></div>
-                            <div class="absolute top-[20px] left-[0px] rotate-[90deg] scale-75 z-10"><div class="arrow-down block !border-t-purple-400"></div></div>
-                            <div class="absolute left-[-42px] top-[50%] -translate-y-1/2 rotate-180" style="writing-mode: vertical-rl;"><span class="text-[9px] bg-[#060913] text-purple-300 font-extrabold px-1 tracking-widest border border-purple-500/50 rounded shadow z-20 relative">NEXT ROUND</span></div>
-
-                            <div class="glass-panel shape-process border-purple-400 !w-[220px] bg-purple-900/20 py-4 z-10 mb-4 ml-[24px] shadow-[0_0_15px_rgba(168,85,247,0.2)]">
-                                <div class="font-extrabold text-purple-300 text-sm">30. Conduct Round Seq.</div>
-                                <div class="text-[9px] text-[#fbcfe8] mt-2 font-bold tracking-wider bg-black/40 py-1 border border-purple-500/30 rounded inline-block px-2 shadow">APTITUDE → TECH → HR</div>
-                                <div class="text-[8px] text-slate-400 mt-1 uppercase tracking-widest">+ Update Results</div>
-                            </div>
-                            
-                            <div class="v-line !h-[15px] !bg-purple-500 mt-[-16px] ml-[24px]"></div><div class="arrow-down block !border-t-purple-500 ml-[24px]"></div>
-
-                            <div class="shape-decision !w-[100px] !h-[100px] border-purple-500 z-10 ml-[24px]">
-                                <div class="decision-text">31. Pass Round?</div>
-                            </div>
-
-                            <!-- Fail Reject right hand out -->
-                            <div class="absolute right-[-10px] top-[148px] w-[50px] border-t-2 border-dashed border-rose-500 z-0"></div>
-                            <div class="absolute right-[-30px] top-[141px] glass-panel !px-2 !py-0.5 border-rose-500 bg-rose-900/30 text-rose-300 font-bold text-[9px] shadow-lg z-20">Reject</div>
-                        </div>
-
-                        <!-- Proceed down to Final -->
-                        <div class="text-[9px] font-bold text-emerald-400 bg-[#060913] px-2 py-0.5 rounded border border-emerald-500/30 shadow ml-[24px]">ALL PASSED</div>
-                        <div class="v-line !h-[20px] !bg-emerald-500 ml-[24px] mt-[-6px]"></div><div class="arrow-down block !border-t-emerald-500 ml-[24px]"></div>
-
-                        <div class="glass-panel shape-process border-emerald-400 !w-[270px]">32. Generate Final Info List</div>
-                        <div class="v-line !h-[20px] !bg-emerald-500"></div><div class="arrow-down block !border-t-emerald-500"></div>
-
-                        <div class="glass-panel shape-process border-emerald-400 !w-[270px] bg-emerald-900/30">
-                            <div class="font-extrabold text-emerald-400">33. Update Final Status</div>
-                            <div class="text-[10px] font-bold text-slate-100 tracking-wider mt-1 uppercase">Selected / Rejected</div>
-                        </div>
-
-                        <div class="flex-grow min-h-[40px]"></div>
-                    </div>
-                </div>
-
-                <!-- ============================================== -->
-                <!-- F. COMMUNICATION FLOW                          -->
-                <!-- ============================================== -->
-                <div class="w-[320px] flex flex-col items-center bg-[#0f172a]/80 backdrop-blur-md border border-slate-700/80 rounded-2xl relative shadow-2xl">
-                    <div class="v-line !h-[40px] !bg-orange-500/70 border-dashed mt-0 absolute top-[-40px]"></div><div class="arrow-down block !border-t-orange-500/70 absolute top-[0px]"></div>
-                    
-                    <div class="bg-orange-600/20 text-orange-300 font-extrabold w-full py-4 text-center border-b border-orange-500/30 rounded-t-2xl tracking-widest text-sm shadow-[0_4px_20px_rgba(249,115,22,0.1)]">MODULE F<br>COMMUNICATION</div>
-                    
-                    <div class="p-4 flex flex-col items-center w-full grow">
-                        <div class="glass-panel shape-process border-orange-400 !w-[270px] py-4">
-                             <div class="font-extrabold text-sm mb-2 text-white">34. Send Notifications</div>
-                             <div class="text-[11px] text-orange-200 bg-orange-900/30 p-2 rounded text-left leading-relaxed border border-orange-500/30 shadow-inner">
-                                 📩 App Status<br>
-                                 📩 Shortlist Updates<br>
-                                 📩 Round Results<br>
-                                 📩 Final Selection
-                             </div>
-                        </div>
-                        <div class="v-line !h-[30px] !bg-orange-500"></div><div class="arrow-down block !border-t-orange-500"></div>
-
-                        <div class="glass-panel shape-process border-orange-400 !w-[270px] bg-orange-900/30">
-                            <div class="font-extrabold text-[#fdba74]">35. Email Recruiters</div>
-                        </div>
-
-                        <div class="flex-grow min-h-[40px]"></div>
-                    </div>
-                </div>
-
-                <!-- ============================================== -->
-                <!-- G. ANALYTICS FLOW                              -->
-                <!-- ============================================== -->
-                <div class="w-[320px] flex flex-col items-center bg-[#0f172a]/80 backdrop-blur-md border border-slate-700/80 rounded-2xl relative shadow-2xl">
-                    <div class="v-line !h-[40px] !bg-pink-500/70 border-dashed mt-0 absolute top-[-40px]"></div><div class="arrow-down block !border-t-pink-500/70 absolute top-[0px]"></div>
-                    
-                    <div class="bg-pink-600/20 text-pink-300 font-extrabold w-full py-4 text-center border-b border-pink-500/30 rounded-t-2xl tracking-widest text-sm shadow-[0_4px_20px_rgba(236,72,153,0.1)]">MODULE G<br>ANALYTICS</div>
-                    
-                    <div class="p-4 flex flex-col items-center w-full grow">
-                        <div class="glass-panel shape-process border-pink-400 !w-[270px] py-4">
-                             <div class="font-extrabold text-sm mb-2 text-white">36. Update Dashboard</div>
-                             <div class="text-[11px] text-pink-200 bg-pink-900/30 p-2 rounded text-center leading-relaxed border border-pink-500/30 shadow-inner">
-                                 Total Students • Total Jobs<br>Placement & Selection Rates
-                             </div>
-                        </div>
-                        <div class="v-line !h-[30px] !bg-pink-500"></div><div class="arrow-down block !border-t-pink-500"></div>
-
-                        <div class="glass-panel shape-process border-pink-400 !w-[270px] bg-pink-900/30 py-4">
-                            <div class="font-extrabold text-[#f9a8d4] mb-2">37. Generate Insights</div>
-                            <div class="flex flex-col gap-1 w-[80%] mx-auto mt-2">
-                                <div class="bg-black/50 text-[9px] text-white py-1 rounded shadow">Branch-wise Maps</div>
-                                <div class="bg-black/50 text-[9px] text-white py-1 rounded shadow">Company Tracking</div>
-                                <div class="bg-black/50 text-[9px] text-white py-1 rounded shadow">Trend History</div>
-                            </div>
-                        </div>
-
-                        <div class="flex-grow min-h-[40px]"></div>
-                    </div>
-                </div>
-
-            </div>
-            
-            <!-- MASTER MERGE TO END -->
-            <div class="flex flex-col items-center relative w-full translate-y-[-20px] pointer-events-none">
-                 <!-- The 7 downward streams push into this dashed bottom line -->
-                 <div class="w-[2160px] border-b-[3px] border-dashed border-slate-500 h-[30px] z-0"></div>
-                 <div class="v-line !h-[50px] !bg-slate-500 border-dashed border-l-[3px] !w-0"></div>
-                 
-                 <!-- END NODE -->
-                 <div class="shape-oval !bg-slate-800 border-slate-500 shadow-[0_0_80px_rgba(255,255,255,0.05)] !text-4xl !px-32 !py-6 tracking-widest text-[#94a3b8] relative z-20 pointer-events-auto">38. END</div>
-            </div>
-
-        </div>
-
     </div>
-</div>
 
-<script>
-    // State Tracking Mapping View to Max Component Width
-    const TABS = {
-        student: { wOffset: 1200, offsetTop: 100 },
-        admin: { wOffset: 2800, offsetTop: 200 } // Center relative to 2800px workspace
-    };
-    let currentView = 'student';
+    <script>
+        // State Tracking Mapping View to Max Component Width
+        const TABS = {
+            student: { wOffset: 1200, offsetTop: 100 },
+            admin: { wOffset: 2800, offsetTop: 200 } // Center relative to 2800px workspace
+        };
+        let currentView = 'student';
 
-    // Calculation Formula
-    const calcInitX = (w) => (window.innerWidth / 2) - (w / 2);
+        // Calculation Formula
+        const calcInitX = (w) => (window.innerWidth / 2) - (w / 2);
 
-    const diagramElement = document.getElementById('diagram-content');
-    
-    // Config Panzoom Infinite Canvas
-    let instance = panzoom(diagramElement, {
-        maxZoom: 3,
-        minZoom: 0.15,
-        initialZoom: 1,
-        initialX: calcInitX(TABS[currentView].width || TABS[currentView].wOffset),
-        initialY: TABS[currentView].offsetTop,
-        bounds: false,
-        smoothScroll: false,
-    });
+        const diagramElement = document.getElementById('diagram-content');
 
-    window.resetZoom = () => {
-        const w = TABS[currentView].width || TABS[currentView].wOffset;
-        const y = TABS[currentView].offsetTop;
-        const cx = calcInitX(w);
-        instance.moveTo(cx, y);
-        // Reset Zoom to completely fit screen or just reasonable default
-        let zoomVal = currentView === 'admin' ? 0.45 : 1;
-        instance.zoomAbs(window.innerWidth / 2, y + 200, zoomVal); 
-    }
+        // Config Panzoom Infinite Canvas
+        let instance = panzoom(diagramElement, {
+            maxZoom: 3,
+            minZoom: 0.15,
+            initialZoom: 1,
+            initialX: calcInitX(TABS[currentView].width || TABS[currentView].wOffset),
+            initialY: TABS[currentView].offsetTop,
+            bounds: false,
+            smoothScroll: false,
+        });
 
-    // Toggle Admin/Student
-    window.setView = (view) => {
-        currentView = view;
-        
-        const sd = document.getElementById('student-diagram');
-        const ad = document.getElementById('admin-diagram');
-        const bs = document.getElementById('btn-student');
-        const ba = document.getElementById('btn-admin');
-
-        if (view === 'student') {
-            sd.classList.remove('hidden-flow');
-            setTimeout(() => ad.classList.add('hidden-flow'), 50); // Small delay to avoid layout jump
-            
-            bs.className = 'px-5 py-2 rounded-full text-[13px] font-bold bg-blue-600 text-white shadow-lg transition';
-            ba.className = 'px-5 py-2 rounded-full text-[13px] font-bold text-slate-400 hover:text-white transition';
-        } else {
-            ad.classList.remove('hidden-flow');
-            setTimeout(() => sd.classList.add('hidden-flow'), 50);
-            
-            ba.className = 'px-5 py-2 rounded-full text-[13px] font-bold bg-purple-600 text-white shadow-lg transition';
-            bs.className = 'px-5 py-2 rounded-full text-[13px] font-bold text-slate-400 hover:text-white transition';
+        window.resetZoom = () => {
+            const w = TABS[currentView].width || TABS[currentView].wOffset;
+            const y = TABS[currentView].offsetTop;
+            const cx = calcInitX(w);
+            instance.moveTo(cx, y);
+            // Reset Zoom to completely fit screen or just reasonable default
+            let zoomVal = currentView === 'admin' ? 0.45 : 1;
+            instance.zoomAbs(window.innerWidth / 2, y + 200, zoomVal);
         }
-        
-        resetZoom();
-    }
-</script>
+
+        // Toggle Admin/Student
+        window.setView = (view) => {
+            currentView = view;
+
+            const sd = document.getElementById('student-diagram');
+            const ad = document.getElementById('admin-diagram');
+            const bs = document.getElementById('btn-student');
+            const ba = document.getElementById('btn-admin');
+
+            if (view === 'student') {
+                sd.classList.remove('hidden-flow');
+                setTimeout(() => ad.classList.add('hidden-flow'), 50); // Small delay to avoid layout jump
+
+                bs.className = 'px-5 py-2 rounded-full text-[13px] font-bold bg-blue-600 text-white shadow-lg transition';
+                ba.className = 'px-5 py-2 rounded-full text-[13px] font-bold text-slate-400 hover:text-white transition';
+            } else {
+                ad.classList.remove('hidden-flow');
+                setTimeout(() => sd.classList.add('hidden-flow'), 50);
+
+                ba.className = 'px-5 py-2 rounded-full text-[13px] font-bold bg-purple-600 text-white shadow-lg transition';
+                bs.className = 'px-5 py-2 rounded-full text-[13px] font-bold text-slate-400 hover:text-white transition';
+            }
+
+            resetZoom();
+        }
+    </script>
 
 </body>
+
 </html>
